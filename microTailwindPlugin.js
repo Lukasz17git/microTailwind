@@ -22,16 +22,16 @@ const transformShadowValue = (value) => {
 }
 
 const borderStyleValues = {
-   none,
-   hidden,
-   dotted,
-   dashed,
-   double,
-   groove,
-   ridge,
-   inset,
-   outset,
-   solid
+   none: 'none',
+   hidden: 'hidden',
+   dotted: 'dotted',
+   dashed: 'dashed',
+   double: 'double',
+   groove: 'groove',
+   ridge: 'ridge',
+   inset: 'inset',
+   outset: 'outset',
+   solid: 'solid'
 }
 
 export function microTailwind({ addVariant, addUtilities, matchUtilities, theme }) {
