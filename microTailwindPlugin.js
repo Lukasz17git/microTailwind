@@ -233,6 +233,8 @@ export function microTailwind({ addVariant, addUtilities, matchUtilities, theme 
    // TEXT
    addUtilities({
       ".tc": { textAlign: "center" },
+      ".tj": { textAlign: "justify" },
+      ".ts": { textAlign: "start" },
       ".te": { textAlign: "end" },
       ".tl": { textAlign: "left" },
       ".tr": { textAlign: "right" },
