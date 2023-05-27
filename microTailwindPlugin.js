@@ -261,6 +261,11 @@ export function microTailwind({ addVariant, addUtilities, matchUtilities, theme 
       { tf: (value) => ({ fontFamily: value }) },
       { values: theme('fontFamily') }
    );
+   // TEXT WEIGHT
+   matchUtilities(
+      { tw: (value) => ({ fontWeight: value }) },
+      { values: theme('fontWeight') }
+   );
    // LINE HEIGHT
    matchUtilities(
       { lh: (value) => ({ lineHeight: value }) },
