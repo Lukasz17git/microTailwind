@@ -92,6 +92,40 @@ const fontWeightExtension = {
    regular: 400
 }
 
+const scaleExtension = {
+   5: '.05',
+   10: '.1',
+   15: '.15',
+   20: '.2',
+   25: '.25',
+   30: '.3',
+   35: '.35',
+   40: '.4',
+   45: '.45',
+   55: '.55',
+   60: '.6',
+   65: '.65',
+   70: '.7',
+   80: '.8',
+   85: '.85',
+   115: '1.15',
+   120: '1.2',
+   130: '1.3',
+   135: '1.35',
+   140: '1.4',
+   145: '1.45',
+   155: '1.55',
+   160: '1.6',
+   165: '1.65',
+   170: '1.7',
+   175: '1.75',
+   180: '1.8',
+   185: '1.85',
+   190: '1.9',
+   195: '1.95',
+   200: '2'
+};
+
 export const addExtensions = {
    spacing: spacingExtension,
    height: heightExtension,
@@ -112,5 +146,6 @@ export const addExtensions = {
    screens: screensExtension,
    opacity: opacityExtension,
    zIndex: zIndexExtension,
-   fontWeight: fontWeightExtension
+   fontWeight: fontWeightExtension,
+   scale: scaleExtension
 }
