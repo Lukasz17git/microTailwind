@@ -95,11 +95,20 @@ const fontWeightExtension = {
 export const addExtensions = {
    spacing: spacingExtension,
    height: heightExtension,
-   maxHeight: heightExtension,
-   minHeight: heightExtension,
    width: widthExtension,
-   maxWidth: widthExtension,
-   minWidth: widthExtension,
+   maxHeight: heightExtension,
+   minHeight: ({ theme }) => ({
+      ...theme('spacing'),
+      ...heightExtension
+   }),
+   maxWidth: ({ theme }) => ({
+      ...theme('spacing'),
+      ...widthExtension
+   }),
+   minWidth: ({ theme }) => ({
+      ...theme('spacing'),
+      ...widthExtension
+   }),
    screens: screensExtension,
    opacity: opacityExtension,
    zIndex: zIndexExtension,
