@@ -148,6 +148,36 @@ export function microTailwind({ addVariant, addUtilities, matchUtilities, theme 
       { bc: (value) => colorWithOpacity(value, '--tw-border-opacity', c => ({ border: `solid 2px ${c}` })) },
       { values: flattenColorPalette(theme('colors')), type: ['color'] }
    );
+   // BORDER Y-AXIS COLOR
+   matchUtilities(
+      { byc: (value) => colorWithOpacity(value, '--tw-border-opacity', c => ({ borderTop: `solid 2px ${c}`, borderBottom: `solid 2px ${c}` })) },
+      { values: flattenColorPalette(theme('colors')), type: ['color'] }
+   );
+   // BORDER X-AXIS COLOR
+   matchUtilities(
+      { bxc: (value) => colorWithOpacity(value, '--tw-border-opacity', c => ({ borderRight: `solid 2px ${c}`, borderLeft: `solid 2px ${c}` })) },
+      { values: flattenColorPalette(theme('colors')), type: ['color'] }
+   );
+   // BORDER TOP COLOR
+   matchUtilities(
+      { btc: (value) => colorWithOpacity(value, '--tw-border-opacity', c => ({ borderTop: `solid 2px ${c}` })) },
+      { values: flattenColorPalette(theme('colors')), type: ['color'] }
+   );
+   // BORDER RIGHT COLOR
+   matchUtilities(
+      { brc: (value) => colorWithOpacity(value, '--tw-border-opacity', c => ({ borderRight: `solid 2px ${c}` })) },
+      { values: flattenColorPalette(theme('colors')), type: ['color'] }
+   );
+   // BORDER BOTTOM COLOR
+   matchUtilities(
+      { bbc: (value) => colorWithOpacity(value, '--tw-border-opacity', c => ({ borderBottom: `solid 2px ${c}` })) },
+      { values: flattenColorPalette(theme('colors')), type: ['color'] }
+   );
+   // BORDER LEFT COLOR
+   matchUtilities(
+      { blc: (value) => colorWithOpacity(value, '--tw-border-opacity', c => ({ borderLeft: `solid 2px ${c}` })) },
+      { values: flattenColorPalette(theme('colors')), type: ['color'] }
+   );
    // BORDER OPACITY
    matchUtilities(
       { bo: (value) => ({ "--tw-border-opacity": value }) },
@@ -164,6 +194,16 @@ export function microTailwind({ addVariant, addUtilities, matchUtilities, theme 
    // BORDER STYLE
    matchUtilities(
       { bs: (value) => ({ borderStyle: value }) },
+      { values: borderStyleValues }
+   );
+   // BORDER X-AXIS STYLE
+   matchUtilities(
+      { bxs: (value) => ({ borderRightStyle: value, borderLeftStyle: value }) },
+      { values: borderStyleValues }
+   );
+   // BORDER Y-AXIS STYLE
+   matchUtilities(
+      { bys: (value) => ({ borderTopStyle: value, borderBottomStyle: value }) },
       { values: borderStyleValues }
    );
    // BORDER TOP STYLE
@@ -189,6 +229,16 @@ export function microTailwind({ addVariant, addUtilities, matchUtilities, theme 
    // BORDER WIDTH
    matchUtilities(
       { bw: (value) => ({ borderWidth: value }) },
+      { values: theme('spacing') }
+   );
+   // BORDER X-AXIS WIDTH
+   matchUtilities(
+      { bxw: (value) => ({ borderRightWidth: value, borderLeftWidth: value }) },
+      { values: theme('spacing') }
+   );
+   // BORDER Y-AXIS WIDTH
+   matchUtilities(
+      { byw: (value) => ({ borderTopWidth: value, borderBottomWidth: value }) },
       { values: theme('spacing') }
    );
    // BORDER TOP WIDTH
