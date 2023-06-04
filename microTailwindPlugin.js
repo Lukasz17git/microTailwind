@@ -459,7 +459,6 @@ export function microTailwind({ addVariant, addUtilities, matchUtilities, theme 
    // DISPLAY
    /*** Maybe con d-b d-g d-f o solo b f g ib i */
    addUtilities({
-      ".i": { display: "inline" },
       ".iblock": { display: "inline-block" },
       ".iflex": { display: "inline-flex" },
       ".igrid": { display: "inline-grid" },
@@ -467,7 +466,7 @@ export function microTailwind({ addVariant, addUtilities, matchUtilities, theme 
    })
    // VISIBILITY
    addUtilities({
-      ".hidden": { visibility: "hidden" },
+      ".hide": { visibility: "hidden" },
    })
    // CURSOR
    addUtilities({

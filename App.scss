@@ -4,6 +4,14 @@
 
 @layer base {
 
+   :root {
+      font-synthesis: none;
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      -webkit-text-size-adjust: 100%;
+   }
+
    //// CSS RESETS ////
 
    *,
@@ -47,23 +55,4 @@
       display: block;
       font-size: 0.75rem;
    }
-}
-
-
-:root {
-   font-synthesis: none;
-   text-rendering: optimizeLegibility;
-   -webkit-font-smoothing: antialiased;
-   -moz-osx-font-smoothing: grayscale;
-   -webkit-text-size-adjust: 100%;
-   // colors
-   --color-main: 26 21 60;
-   // fonts
-   --text-regular: 'nunitosans regular';
-   --text-semibold: 'nunitosans semibold';
-   --text-extrabold: 'nunitosans extrabold';
-}
-
-#root {
-   font-family: var(--text-regular);
 }
