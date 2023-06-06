@@ -3,16 +3,27 @@ import plugin from 'tailwindcss/plugin'
 import { addExtensions } from './extensionsPlugin'
 import { microTailwind, microTailwindExperimental } from './microTailwindPlugin'
 import colors from 'tailwindcss/colors'
+// import { twTransform, tw } from 'tailwind-multi-class'
 
 export default {
    content: [
       "./index.html",
       "./src/**/*.{js,ts,jsx,tsx}",
    ],
+   // content: {
+   //    files: [
+   //       "./index.html",
+   //       "./src/**/*.{js,ts,jsx,tsx}",
+   //    ],
+   //    transform: {
+   //       DEFAULT: twTransform(tw)
+   //    }
+   // },
+   darkMode: 'class',
    theme: {
-      color: {
+      colors: {
          //your colors,
-         ...colors // this way your custom colors appears first
+         ...colors
       },
       extend: {
          boxShadow: {
@@ -28,7 +39,33 @@ export default {
    },
    plugins: [
       plugin(microTailwind),
-      plugin(microTailwindExperimental)
+      plugin(microTailwindExperimental),
+      plugin(({ addComponents, addBase }) => {
+         // base styling
+         addBase({
+            svg: {
+               '@apply h-24 w-24': {}
+            }
+         });
+         // fonts
+         addComponents({
+            '.tf-app-light': {
+               '@apply tf-app tw-light': {}
+            },
+            '.tf-app-regular': {
+               '@apply tf-app tw-regular': {}
+            },
+            '.tf-app-semibold': {
+               '@apply tf-app tw-semibold': {}
+            },
+            '.tf-app-extrabold': {
+               '@apply tf-app tw-extrabold': {}
+            },
+         });
+         // base components
+         addComponents({
+         });
+      })
    ],
 }
 
