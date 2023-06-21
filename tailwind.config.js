@@ -3,6 +3,7 @@ import plugin from 'tailwindcss/plugin'
 import { addExtensions } from './extensionsPlugin'
 import { microTailwind, microTailwindExperimental } from './microTailwindPlugin'
 import colors from 'tailwindcss/colors'
+import addUtilitesWithDarkMode from './utilitiesWithDarkModePlugin'
 // import { twTransform, tw } from 'tailwind-multi-class'
 
 export default {
@@ -40,6 +41,11 @@ export default {
    plugins: [
       plugin(microTailwind),
       plugin(microTailwindExperimental),
+      plugin(addUtilitesWithDarkMode(({ addUtility }) => {
+         addUtility('tc', 'color', {
+            black: ['#222222', '#eee']
+         })
+      })),
       plugin(({ addComponents, addBase }) => {
          // base styling
          addBase({
