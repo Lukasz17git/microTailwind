@@ -413,7 +413,6 @@ export function microTailwind({ addVariant, addUtilities, matchUtilities, theme 
       },
    })
    // POSITION
-   /*** p-a p-r p-f p-s */
    addUtilities({
       ".pos-a": { position: "absolute" },
       ".pos-r": { position: "relative" },

@@ -1,7 +1,50 @@
 {
-  "devDependencies": {
-    "autoprefixer": "^10.4.14",
-    "postcss": "^8.4.24",
-    "tailwindcss": "^3.3.2"
-  }
+   "name": "microtailwind",
+   "version": "1.0.0",
+   "description": "Package to write shorter tailwind css classes without any conflicts with the default ones.",
+   "keywords": [
+      "microtailwind",
+      "microtailwindcss",
+      "micro tailwind",
+      "micro tailwindcss",
+      "tailwind",
+      "tailwindcss",
+      "shorter tailwind",
+      "shorter tailwindcss"
+   ],
+   "author": "Lukasz Maraj",
+   "license": "MIT",
+   "private": false,
+   "main": "dist/index.js",
+   "module": "dist/index.mjs",
+   "types": "dist/index.d.ts",
+   "files": [
+      "dist",
+      "README.md",
+      "LICENSE"
+   ],
+   "scripts": {
+      "dev": "vitest",
+      "test": "vitest run",
+      "build": "tsup src/index.ts --format cjs,esm --dts",
+      "lint": "tsc",
+      "ci": "npm run lint && npm run test && npm run build",
+      "release": "npm run lint && npm run test && npm run build && changeset publish"
+   },
+   "repository": {
+      "type": "git",
+      "url": "git+https://github.com/Lukasz17git/microTailwind.git"
+   },
+   "bugs": {
+      "url": "https://github.com/Lukasz17git/microTailwind/issues"
+   },
+   "homepage": "https://github.com/Lukasz17git/microTailwind#readme",
+   "devDependencies": {
+      "tsup": "^7.1.0",
+      "typescript": "^5.1.6",
+      "vitest": "^0.33.0"
+   },
+   "dependencies": {
+      "tailwindcss": "^3.3.3"
+   }
 }

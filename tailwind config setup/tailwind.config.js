@@ -1,9 +1,9 @@
 /** @type {import('tailwindcss').Config} */
 import plugin from 'tailwindcss/plugin'
-import { addExtensions } from './extensionsPlugin'
-import { microTailwind, microTailwindExperimental } from './microTailwindPlugin'
+import { addExtensions } from '../src/extensionsPlugin'
+import { microTailwind, microTailwindExperimental } from '../src/microTailwindPlugin'
 import colors from 'tailwindcss/colors'
-import addUtilitesWithDarkMode from './utilitiesWithDarkModePlugin'
+import addUtilitesWithDarkMode from '../src/utilitiesWithDarkModePlugin'
 // import { twTransform, tw } from 'tailwind-multi-class'
 
 export default {
@@ -12,10 +12,7 @@ export default {
       "./src/**/*.{js,ts,jsx,tsx}",
    ],
    // content: {
-   //    files: [
-   //       "./index.html",
-   //       "./src/**/*.{js,ts,jsx,tsx}",
-   //    ],
+   //    files: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}",],
    //    transform: {
    //       DEFAULT: twTransform(tw)
    //    }
