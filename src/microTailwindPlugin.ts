@@ -1,9 +1,14 @@
+
+//@ts-ignore
 import { parseBoxShadowValue, formatBoxShadowValue } from 'tailwindcss/src/util/parseBoxShadowValue'
+//@ts-ignore
 import flattenColorPalette from 'tailwindcss/src/util/flattenColorPalette'
+//@ts-ignore
 import { formatColor, parseColor } from 'tailwindcss/src/util/color'
+import { CSSRuleObject, PluginCreator } from "tailwindcss/types/config"
 
 
-const colorWithOpacity = (color, opacityVariableName, returnPropertiesCallback) => {
+const colorWithOpacity = (color: string | ((v: any) => any), opacityVariableName: string, returnPropertiesCallback: (color: string) => CSSRuleObject ) => {
    if (typeof color === 'function') {
       const withOpacity = color({ opacityVariable: opacityVariableName, opacityValue: `var(${opacityVariableName})` })
       return { [opacityVariableName]: '1', ...returnPropertiesCallback(withOpacity) }
@@ -15,7 +20,7 @@ const colorWithOpacity = (color, opacityVariableName, returnPropertiesCallback) 
    return { [opacityVariableName]: '1', ...returnPropertiesCallback(withOpacity) }
 }
 
-const transformShadowValue = (value) => {
+const transformShadowValue = (value: any) => {
    if (typeof value === 'function') value = value({})
    if (Array.isArray(value)) value = value.join(', ')
    return value
@@ -34,7 +39,7 @@ const borderStyleValues = {
    solid: 'solid'
 }
 
-export function microTailwind({ addVariant, addUtilities, matchUtilities, theme }) {
+export const microTailwind: PluginCreator = ({ addVariant, addUtilities, matchUtilities, theme }) => {
 
    // MODIFIERS
    addVariant('h', '&:hover')
@@ -67,7 +72,8 @@ export function microTailwind({ addVariant, addUtilities, matchUtilities, theme 
    matchUtilities(
       {
          sc: (value) => ({
-            '--tw-shadow-color': typeof value === 'function' ? value({}) : value,
+            // '--tw-shadow-color': typeof value === 'function' ? value({}) : value,
+            '--tw-shadow-color': value,
             '--tw-shadow': 'var(--tw-shadow-colored)',
          })
       },
@@ -480,20 +486,20 @@ export function microTailwind({ addVariant, addUtilities, matchUtilities, theme 
 }
 
 // TO TEST //
-export function microTailwindExperimental({ addUtilities }) {
+export const microTailwindExperimental: PluginCreator = ({ addUtilities }) => {
 
    addUtilities({
       '.fs0': {
-         flexShrink: 0
+         flexShrink: "0"
       },
       '.fs1': {
-         flexShrink: 1
+         flexShrink: "1"
       },
       '.fg0': {
-         flexGrow: 0
+         flexGrow: "0"
       },
       '.fg1': {
-         flexGrow: 1
+         flexGrow: "1"
       },
    })
 
