@@ -1,5 +1,4 @@
+import { microTailwind, microTailwindExperimental } from './microTailwindPlugin'
 
-
-export const hello = () => {
-   console.log('hello')
-}
+export { microTailwind, microTailwindExperimental }
+export default microTailwind

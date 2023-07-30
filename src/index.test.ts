@@ -1,6 +1,4 @@
 import { describe, it, expect } from 'vitest'
-import { addUtilitesWithDarkMode } from './utilitiesWithDarkModePlugin'
-
 
 describe('addDarkModeUtilities', () => {
    it('should be able to add new utilities with dark mode', () => {
