@@ -36,13 +36,6 @@ export default {
       },
    },
    plugins: [
-      plugin(({ addUtilities }) => {
-         addUtilities({
-            '.tc-black': {
-               'visibility': 'hidden'
-            }
-         })
-      }),
       plugin(microTailwind),
       plugin(microTailwindExperimental),
       plugin(addUtilitesWithDarkMode(({ addUtility }) => {
