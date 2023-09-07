@@ -1,3 +1,4 @@
+import { PluginAPI } from 'tailwindcss/types/config'
 
 const pixelSpacingExtension = {
    "0.": '0px',
@@ -316,9 +317,10 @@ export const spacing = { ...spacingExtension, ...pixelSpacingExtension }
 export const height = heightExtension
 export const width = widthExtension
 export const maxHeight = heightExtension
-export const minHeight = ({ theme }) => ({ ...theme('spacing'), ...heightExtension })
-export const maxWidth = ({ theme }) => ({ ...theme('spacing'), ...widthExtension })
-export const minWidth = ({ theme }) => ({ ...theme('spacing'), ...widthExtension })
+type SizeThemeParam = { theme: PluginAPI['theme'] }
+export const minHeight = ({ theme }: SizeThemeParam) => ({ ...theme('spacing'), ...heightExtension })
+export const maxWidth = ({ theme }: SizeThemeParam) => ({ ...theme('spacing'), ...widthExtension })
+export const minWidth = ({ theme }: SizeThemeParam) => ({ ...theme('spacing'), ...widthExtension })
 export const screens = screensExtension
 export const opacity = opacityExtension
 export const zIndex = zIndexExtension

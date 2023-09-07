@@ -9,7 +9,7 @@ import addUtilitesWithDarkMode from '../src/utilitiesWithDarkModePlugin'
 export default {
    content: [
       "./index.html",
-      "./src/**/*.{js,ts,jsx,tsx}",
+      "./src/**/*.{js,ts,jsx,tsx,vue}",
    ],
    // content: {
    //    files: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}",],

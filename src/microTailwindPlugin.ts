@@ -39,7 +39,7 @@ const borderStyleValues = {
    solid: 'solid'
 }
 
-export const microTailwind: PluginCreator = ({ addVariant, addUtilities, matchUtilities, theme }) => {
+export const microtailwind: PluginCreator = ({ addVariant, addUtilities, matchUtilities, theme }) => {
 
    // MODIFIERS
    addVariant('h', '&:hover')
@@ -486,7 +486,7 @@ export const microTailwind: PluginCreator = ({ addVariant, addUtilities, matchUt
 }
 
 // TO TEST //
-export const microTailwindExperimental: PluginCreator = ({ addUtilities }) => {
+export const microtailwindExperimental: PluginCreator = ({ addUtilities }) => {
 
    addUtilities({
       '.fs0': {
