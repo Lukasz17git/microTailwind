@@ -1,4 +1,4 @@
-import { PluginAPI } from 'tailwindcss/types/config'
+import { ExtensionSizeThemeParameter, Extensions, MicrotailwindExtendedExtensionsConfig, extendedExtensions } from './extensionsPlugin.types';
 
 const pixelSpacingExtension = {
    "0.": '0px',
@@ -276,7 +276,7 @@ const zIndexExtension = {
 }
 
 const fontWeightExtension = {
-   regular: 400
+   regular: '400'
 }
 
 const scaleExtension = {
@@ -313,21 +313,20 @@ const scaleExtension = {
    200: '2'
 };
 
-export const spacing = { ...spacingExtension, ...pixelSpacingExtension }
-export const height = heightExtension
-export const width = widthExtension
-export const maxHeight = heightExtension
-type SizeThemeParam = { theme: PluginAPI['theme'] }
-export const minHeight = ({ theme }: SizeThemeParam) => ({ ...theme('spacing'), ...heightExtension })
-export const maxWidth = ({ theme }: SizeThemeParam) => ({ ...theme('spacing'), ...widthExtension })
-export const minWidth = ({ theme }: SizeThemeParam) => ({ ...theme('spacing'), ...widthExtension })
-export const screens = screensExtension
-export const opacity = opacityExtension
-export const zIndex = zIndexExtension
-export const fontWeight = fontWeightExtension
-export const scale = scaleExtension
+const spacing = { ...spacingExtension, ...pixelSpacingExtension }
+const height = heightExtension
+const width = widthExtension
+const maxHeight = heightExtension
+const minHeight = ({ theme }: ExtensionSizeThemeParameter) => ({ ...theme('spacing'), ...heightExtension })
+const maxWidth = ({ theme }: ExtensionSizeThemeParameter) => ({ ...theme('spacing'), ...widthExtension })
+const minWidth = ({ theme }: ExtensionSizeThemeParameter) => ({ ...theme('spacing'), ...widthExtension })
+const screens = screensExtension
+const opacity = opacityExtension
+const zIndex = zIndexExtension
+const fontWeight = fontWeightExtension
+const scale = scaleExtension
 
-export const addExtensions = {
+export const microtailwindExtensions = {
    spacing,
    height,
    width,
@@ -342,4 +341,16 @@ export const addExtensions = {
    scale
 }
 
-export default addExtensions
+export const withMicrotailwindExtensions = (customExtensions: Extensions = {}, config: MicrotailwindExtendedExtensionsConfig = {}) => {
+
+   const extendedExtensions: extendedExtensions = { ...customExtensions }
+
+   for (const [extensionName, microtailwindExtension] of Object.entries(microtailwindExtensions)) {
+      const configKey = `disable_${extensionName}` as keyof typeof config
+      if (config[configKey]) continue
+      const customExtension = customExtensions[extensionName]
+      extendedExtensions[extensionName] = { ...microtailwindExtension, ...customExtension }
+   }
+
+   return extendedExtensions
+}

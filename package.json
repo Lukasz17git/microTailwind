@@ -20,6 +20,8 @@
    "types": "dist/index.d.ts",
    "files": [
       "dist",
+      "abreviations,js",
+      "tailwind.config.example.js",
       "README.md",
       "LICENSE"
    ],
