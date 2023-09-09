@@ -20,8 +20,8 @@ export default {
          })
          /** custom component name */
          addComponentUtility('btn-main', {
-            'bg': ['yellow', 'red'], // will generate "bg-btn-main", yellow for lightmode and red for darkmode
-            'border': ['red', 'yellow'], // will generate "bg-btn-main", red for lightmode and yellow for darkmode
+            'bg': ['yellow', 'red'], // will generate "bg-btn-main", yellow color for lightmode and red color for darkmode
+            'border': ['red', 'yellow'], // will generate "border-btn-main", red color for lightmode and yellow color for darkmode
          })
       })),
    ],
