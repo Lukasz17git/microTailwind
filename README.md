@@ -7,13 +7,13 @@
 
 - **Shorter** utility **classnames** fully compatible with the default ones
 - **Expanded Theme**, with stuff like pixel based values transformed into rem values automatically as dot notation
-- Default and easy **Dark Mode** setup, for new and existing projects without **refactoring**
+- Default and easy **Dark Mode** setup, for new and existing projects **without refactoring**
 - **100% compatibility** with TailwindCSS, its add-ons and any kind of third party plugins
 
 **Also includes**:
 
-- Config file as an example for the tailwind.config setup
-- Abreviations file to show all the abreviations that are included in the { microtailwind } section of this package.
+- tailwind.config.example file as an example for the tailwind config setup
+- Abreviations.js file to show all the abreviations which are included in the { microtailwind } section of this package.
 
 ## Installation
 

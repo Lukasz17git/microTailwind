@@ -1,0 +1,5 @@
+---
+"microtailwind": patch
+---
+
+improved readme
