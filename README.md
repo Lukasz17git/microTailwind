@@ -18,7 +18,7 @@
 ## Installation
 
 ```bash
- npm install microtailwind
+ npm install -D microtailwind
 ```
 
 ## Dark Mode
