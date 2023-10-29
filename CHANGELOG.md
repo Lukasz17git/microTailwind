@@ -1,5 +1,15 @@
 # microtailwind
 
+## 0.3.0
+
+### Minor Changes
+
+- 212cd8a: fix
+
+### Patch Changes
+
+- 01b2bdb: improved readme
+
 ## 0.2.0
 
 ### Minor Changes
