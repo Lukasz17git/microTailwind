@@ -346,11 +346,27 @@ export const withMicrotailwindExtensions = (customExtensions: Extensions = {}, c
    const extendedExtensions: extendedExtensions = { ...customExtensions }
 
    for (const [extensionName, microtailwindExtension] of Object.entries(microtailwindExtensions)) {
-      const configKey = `disable_${extensionName}` as keyof typeof config
+      const configKey = `disable_${extensionName}` as keyof MicrotailwindExtendedExtensionsConfig
       if (config[configKey]) continue
-      const customExtension = customExtensions[extensionName]
+      const customExtension: object | ((args: ExtensionSizeThemeParameter) => object) | undefined = customExtensions[extensionName]      //this can be an object or a function
+      
+      const isCustomExtensionFunction = typeof customExtension === 'function'
+      const isMicrotailwindExtensionFunction = typeof microtailwindExtension === 'function'
+
+      if (isCustomExtensionFunction && isMicrotailwindExtensionFunction) {
+         extendedExtensions[extensionName] = (args: ExtensionSizeThemeParameter) => ({ ...microtailwindExtension(args), ...customExtension(args) })
+         continue
+      }
+      if (isMicrotailwindExtensionFunction) {
+         extendedExtensions[extensionName] = (args: ExtensionSizeThemeParameter) => ({ ...microtailwindExtension(args), ...customExtension })
+         continue
+      }
+      if (isCustomExtensionFunction) {
+         extendedExtensions[extensionName] = (args: ExtensionSizeThemeParameter) => ({ ...microtailwindExtension, ...customExtension(args) })
+         continue
+      }
       extendedExtensions[extensionName] = { ...microtailwindExtension, ...customExtension }
    }
-
+   
    return extendedExtensions
 }

@@ -1,0 +1,5 @@
+---
+"microtailwind": minor
+---
+
+fix
