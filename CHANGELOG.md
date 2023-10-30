@@ -1,5 +1,11 @@
 # microtailwind
 
+## 0.3.4
+
+### Patch Changes
+
+- eed378b: fix exported files
+
 ## 0.3.3
 
 ### Patch Changes
