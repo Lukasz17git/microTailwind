@@ -1,5 +1,12 @@
 # microtailwind
 
+## 0.3.1
+
+### Patch Changes
+
+- 96b8dc9: a
+- a8a5064: added posibility to import types from "/types"
+
 ## 0.3.0
 
 ### Minor Changes
