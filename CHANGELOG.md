@@ -1,5 +1,11 @@
 # microtailwind
 
+## 0.3.3
+
+### Patch Changes
+
+- 9f6a4ef: fix versioning
+
 ## 0.3.2
 
 ### Patch Changes
