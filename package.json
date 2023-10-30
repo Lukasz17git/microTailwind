@@ -20,7 +20,7 @@
    "types": "dist/index.d.ts",
    "files": [
       "dist",
-      "types",
+      "types.d.ts",
       "abreviations.js",
       "tailwind.config.example.js",
       "README.md",
@@ -29,7 +29,9 @@
    "scripts": {
       "dev": "vitest",
       "test": "vitest run",
-      "build": "tsup index.ts --format cjs,esm --dts",
+      "moveTypes": "node utils/moveFile.cjs",
+      "build_types": "tsup src/types.ts --dts-only && npm run moveTypes",
+      "build": "tsup src/index.ts --format cjs,esm --dts && npm run build_types",
       "lint": "tsc",
       "ci": "npm run lint && npm run test && npm run build",
       "release": "npm run lint && npm run test && npm run build && changeset publish"

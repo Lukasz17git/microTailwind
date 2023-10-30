@@ -41,3 +41,4 @@ next-env.d.ts
 # custom
 node_modules
 dist
+types.d.ts
