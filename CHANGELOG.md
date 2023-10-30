@@ -1,5 +1,11 @@
 # microtailwind
 
+## 0.3.2
+
+### Patch Changes
+
+- 14da442: fixed types export
+
 ## 0.3.1
 
 ### Patch Changes
