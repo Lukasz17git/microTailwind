@@ -12,7 +12,7 @@ type ColorSupportingDarkMode = StringColor | [StringColor] | [StringColor, Strin
 
 export type Utilities = Record<string, Record<string, string>>
 
-type RecordOfCustomColorClassNames = Record<CustomColorClassName, ColorSupportingDarkMode>
+export type RecordOfCustomColorClassNames = Record<CustomColorClassName, ColorSupportingDarkMode>
 
 export type AddUtilityType = (
    abreviation: SupportedAbreviationsForDarkMode,
