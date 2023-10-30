@@ -20,7 +20,6 @@
    "types": "dist/index.d.ts",
    "files": [
       "dist",
-      "types.ts",
       "abreviations.js",
       "tailwind.config.example.js",
       "README.md",
@@ -32,8 +31,7 @@
       "build": "tsup index.ts --format cjs,esm --dts",
       "lint": "tsc",
       "ci": "npm run lint && npm run test && npm run build",
-      "version": "changeset version",
-      "release": "npm run ci && changeset publish"
+      "release": "npm run lint && npm run test && npm run build && changeset publish"
    },
    "repository": {
       "type": "git",
