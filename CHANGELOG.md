@@ -1,5 +1,11 @@
 # microtailwind
 
+## 0.4.0
+
+### Minor Changes
+
+- c6b04c5: added "addClassesUsingApply" as helper function
+
 ## 0.3.5
 
 ### Patch Changes
