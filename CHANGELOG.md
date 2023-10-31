@@ -1,5 +1,11 @@
 # microtailwind
 
+## 0.5.1
+
+### Patch Changes
+
+- 406ae7a: updated tailwindcss dependency to latest version
+
 ## 0.5.0
 
 ### Minor Changes
