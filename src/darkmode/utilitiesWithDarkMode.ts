@@ -1,4 +1,4 @@
-import { AddUtilityType, Utilities, AddComponentUtilityType, SupportedAbreviationsForDarkMode, AddUtilitiesWithDarkModeType } from './utilitiesWithDarkMode.types'
+import { AddComponentUtilityType, AddUtilitiesWithDarkModeType, AddUtilityType, SupportedAbreviationsForDarkMode, Utilities, RecordSupportingApply, ComponentSupportingApply } from './utilitiesWithDarkMode.types'
 
 export const supportedAbreviationsForDarkMode = {
    bg: 'backgroundColor',
@@ -13,7 +13,7 @@ export const supportedAbreviationsForDarkMode = {
 
 const addUtility: AddUtilityType = (microtailwindAbreviation, values, options = {}) => {
 
-   const { darkModeClass = 'dark' } = options
+   const { tailwindDarkModeClass = 'dark' } = options
 
    const utilities: Utilities = {}
 
@@ -23,7 +23,7 @@ const addUtility: AddUtilityType = (microtailwindAbreviation, values, options = 
 
       if (Array.isArray(color)) {
          if (color[0]) utilities[utilityKeyName] = { [cssProperty]: color[0] }
-         if (color[1]) utilities[`.${darkModeClass} ${utilityKeyName}`] = { [cssProperty]: color[1] }
+         if (color[1]) utilities[`.${tailwindDarkModeClass} ${utilityKeyName}`] = { [cssProperty]: color[1] }
       } else {
          utilities[utilityKeyName] = { [cssProperty]: color }
       }
@@ -34,44 +34,58 @@ const addUtility: AddUtilityType = (microtailwindAbreviation, values, options = 
 
 const addComponentUtility: AddComponentUtilityType = (componentClassname, microtailwindStyles, options = {}) => {
 
-   const { darkModeClass = 'dark', prefixForApplyingAllStylesAtOnce = 'component' } = options
+   const { tailwindDarkModeClass = 'dark', prefixForComponent = 'use' } = options
 
-   const allUtilitiesAtOnce = `.${prefixForApplyingAllStylesAtOnce}-${componentClassname}`
-   const darkModeAllUtilitiesAtOnce = `.${darkModeClass} ${allUtilitiesAtOnce}`
-   const utilities: Utilities = {
-      [allUtilitiesAtOnce]: {},
-      [darkModeAllUtilitiesAtOnce]: {},
+   const utilities: Utilities = {}
+
+   const tailwindComponentClassname = `.${prefixForComponent}-${componentClassname}`
+   const darkModeTailwindComponentClassname = `.${tailwindDarkModeClass} ${tailwindComponentClassname}`
+
+   const { apply, ...microtailwindStylesWithoutUseApply } = microtailwindStyles
+
+   const component: ComponentSupportingApply = {
+      [tailwindComponentClassname]: {},
+      [darkModeTailwindComponentClassname]: {},
    }
 
-   for (const [supportedUtilityClassName, color] of Object.entries(microtailwindStyles)) {
+   if (apply) {
+      component[tailwindComponentClassname] = { [apply]: {} } as RecordSupportingApply //needed to remove the error of ts that the provided key is not a string and rather a ApplyValue
+   }
+
+   for (const [supportedUtilityClassName, color] of Object.entries(microtailwindStylesWithoutUseApply)) {
       const cssProperty = supportedAbreviationsForDarkMode[supportedUtilityClassName as SupportedAbreviationsForDarkMode]
+      if (!cssProperty) continue
       const utilityKeyName = `.${supportedUtilityClassName}-${componentClassname}`
 
       if (!Array.isArray(color)) {
          utilities[utilityKeyName] = { [cssProperty]: color }
-         utilities[allUtilitiesAtOnce]![cssProperty] = color
+         component[tailwindComponentClassname]![cssProperty] = color
       } else {
          if (color[0]) {
             utilities[utilityKeyName] = { [cssProperty]: color[0] }
-            utilities[allUtilitiesAtOnce]![cssProperty] = color[0]
+            component[tailwindComponentClassname]![cssProperty] = color[0]
          }
 
          if (color[1]) {
-            utilities[`.${darkModeClass} ${utilityKeyName}`] = { [cssProperty]: color[1] }
-            utilities[darkModeAllUtilitiesAtOnce]![cssProperty] = color[1]
+            utilities[`.${tailwindDarkModeClass} ${utilityKeyName}`] = { [cssProperty]: color[1] }
+            component[darkModeTailwindComponentClassname]![cssProperty] = color[1]
          }
       }
    }
 
-   return utilities
+   return { utilities, component }
 }
 
 
-export const addUtilitesWithDarkMode: AddUtilitiesWithDarkModeType = (darkModeUtilities) => ({ addUtilities }) => {
+export const addUtilitesWithDarkMode: AddUtilitiesWithDarkModeType = (darkModeUtilities) => ({ addUtilities, addComponents }) => {
 
    const addUtilityMiddleware = (...args: Parameters<AddUtilityType>) => addUtilities(addUtility(...args))
 
-   const addClassNamedUtilityMiddleware = (...args: Parameters<AddComponentUtilityType>) => addUtilities(addComponentUtility(...args))
+   const addComponentMiddleware = (...args: Parameters<AddComponentUtilityType>) => {
+      const { utilities, component } = addComponentUtility(...args)
+      addUtilities(utilities)
+      addComponents(component)
+   }
 
-   darkModeUtilities({ addUtility: addUtilityMiddleware, addComponentUtility: addClassNamedUtilityMiddleware })
+   darkModeUtilities({ addUtility: addUtilityMiddleware, addComponentUtility: addComponentMiddleware })
 }

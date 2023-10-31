@@ -12,33 +12,40 @@ type ColorSupportingDarkMode = StringColor | [StringColor] | [StringColor, Strin
 
 export type Utilities = Record<string, Record<string, string>>
 
-export type RecordOfCustomColorClassNames = Record<CustomColorClassName, ColorSupportingDarkMode>
+type RecordOfCustomColorClassNames = Record<CustomColorClassName, ColorSupportingDarkMode>
 
 export type AddUtilityType = (
    abreviation: SupportedAbreviationsForDarkMode,
    values: RecordOfCustomColorClassNames,
    options?: {
-      darkModeClass?: 'dark' | string
+      tailwindDarkModeClass?: 'dark' | string
    }
-) => Record<string, Record<string, string>>
+) => Utilities
+
 type addUtilityMiddlewareType = (...args: Parameters<AddUtilityType>) => void
 
+type UseApplyKey = 'apply'
+type ApplyValue = `@apply ${string}`
 
-type MicrotailwindStyles = Partial<Record<SupportedAbreviationsForDarkMode, ColorSupportingDarkMode>>
+type UseApplyObject = { [K in UseApplyKey]?: ApplyValue }
+type ApplyObject = Record<ApplyValue, {}>
+
+export type RecordSupportingApply = Record<string, string> & ApplyObject
+export type ComponentSupportingApply = Record<string, RecordSupportingApply>
+
+type MicrotailwindStyles = Partial<Record<SupportedAbreviationsForDarkMode, ColorSupportingDarkMode>> & UseApplyObject
 
 export type AddComponentUtilityType = <T>(
    yourCustomComponentClassname: string,
    utilitiesToApply: StrictObject<MicrotailwindStyles, T>,
    options?: {
-      darkModeClass?: 'dark' | string
-      prefixForApplyingAllStylesAtOnce?: 'complete' | string
+      tailwindDarkModeClass?: 'dark' | string
+      prefixForComponent?: 'use' | string
    }
-) => Record<string, Record<string, string>>
+) => { utilities: Utilities, component: ComponentSupportingApply }
 
 type AddComponentUtilityMiddlewareType = (...args: Parameters<AddComponentUtilityType>) => void
 
 type AddDarkModeUtilitiesFunction = (addDarkModeUtilitiesFunction: { addUtility: addUtilityMiddlewareType, addComponentUtility: AddComponentUtilityMiddlewareType }) => void
 
-export type AddUtilitiesWithDarkModeType = (darkModeUtilitiesFunction: AddDarkModeUtilitiesFunction) => (arg: { addUtilities: PluginAPI['addUtilities'] }) => void
-
-
+export type AddUtilitiesWithDarkModeType = (darkModeUtilitiesFunction: AddDarkModeUtilitiesFunction) => (arg: PluginAPI) => void

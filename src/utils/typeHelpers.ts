@@ -1,7 +1,7 @@
 export type StrictObject<TExpected, T> = T extends TExpected
    ? Exclude<keyof T, keyof TExpected> extends never
    ? T
-   : `ERROR: THERE ARE EXCESS PROPERTIES IN CREDENTIALS OBJECT`
+   : T & { TS_ERROR: `TYPESCRIPT ERROR: THERE ARE EXCESS PROPERTIES IN OBJECT` }
    : TExpected
 
 
