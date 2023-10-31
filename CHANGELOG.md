@@ -1,5 +1,11 @@
 # microtailwind
 
+## 0.5.0
+
+### Minor Changes
+
+- fb608c9: added support for @apply, improved the order of components and utilities to be able to override default component styles
+
 ## 0.4.0
 
 ### Minor Changes
