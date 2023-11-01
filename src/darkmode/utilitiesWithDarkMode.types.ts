@@ -5,46 +5,42 @@ import { PluginAPI } from "tailwindcss/types/config"
 export type SupportedAbreviationsForDarkMode = keyof typeof supportedAbreviationsForDarkMode
 
 type StringColor = string
-
+type ValueSupportingDarkMode = StringColor | [StringColor] | [StringColor, StringColor] | [undefined, StringColor]
 type CustomColorClassName = string
-
-type ColorSupportingDarkMode = StringColor | [StringColor] | [StringColor, StringColor] | [undefined, StringColor]
+export type AddUtilitySupportingDarkmodeParameter = Record<CustomColorClassName, ValueSupportingDarkMode>
 
 export type Utilities = Record<string, Record<string, string>>
 
-type RecordOfCustomColorClassNames = Record<CustomColorClassName, ColorSupportingDarkMode>
-
-export type AddUtilityType = (
+export type AddUtilitySupportingDarkmode = (
    abreviation: SupportedAbreviationsForDarkMode,
-   values: RecordOfCustomColorClassNames,
+   values: AddUtilitySupportingDarkmodeParameter,
    options?: {
       tailwindDarkModeClass?: 'dark' | string
    }
 ) => Utilities
 
-type addUtilityMiddlewareType = (...args: Parameters<AddUtilityType>) => void
+export type ApplyFormat = `@apply ${string}`
 
-type UseApplyKey = 'apply'
-type ApplyValue = `@apply ${string}`
+type UseApplyObject = { [K in 'apply']?: ApplyFormat }
+type ApplyObject = Record<ApplyFormat, {}>
 
-type UseApplyObject = { [K in UseApplyKey]?: ApplyValue }
-type ApplyObject = Record<ApplyValue, {}>
+type MicrotailwindStyles = Partial<Record<SupportedAbreviationsForDarkMode, ValueSupportingDarkMode>> & UseApplyObject
+export type AddComponentSupportingDarkmodeParameter<T> = StrictObject<MicrotailwindStyles, T>
 
 export type RecordSupportingApply = Record<string, string> & ApplyObject
 export type ComponentSupportingApply = Record<string, RecordSupportingApply>
 
-type MicrotailwindStyles = Partial<Record<SupportedAbreviationsForDarkMode, ColorSupportingDarkMode>> & UseApplyObject
-
-export type AddComponentUtilityType = <T>(
+export type AddComponentSupportingDarkmode = <T>(
    yourCustomComponentClassname: string,
-   utilitiesToApply: StrictObject<MicrotailwindStyles, T>,
+   utilitiesToApply: AddComponentSupportingDarkmodeParameter<T>,
    options?: {
       tailwindDarkModeClass?: 'dark' | string
       prefixForComponent?: 'use' | string
    }
 ) => { utilities: Utilities, component: ComponentSupportingApply }
 
-type AddComponentUtilityMiddlewareType = (...args: Parameters<AddComponentUtilityType>) => void
+type addUtilityMiddlewareType = (...args: Parameters<AddUtilitySupportingDarkmode>) => void
+type AddComponentUtilityMiddlewareType = (...args: Parameters<AddComponentSupportingDarkmode>) => void
 
 type AddDarkModeUtilitiesFunction = (addDarkModeUtilitiesFunction: { addUtility: addUtilityMiddlewareType, addComponentUtility: AddComponentUtilityMiddlewareType }) => void
 
