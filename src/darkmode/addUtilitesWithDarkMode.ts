@@ -37,13 +37,44 @@ const addUtility: AddUtilitySupportingDarkmode = (microtailwindAbreviation, valu
    return utilities
 }
 
+
+
+///////////////////////////
+///////////////////////////
+///////////////////////////
+///////////////////////////
+
+// esta forma no está nada mal
+const components = {
+   '.button': {
+      DEFAULT: '@apply h-40. frcc br-8. py-8. px-20. tw-semibold ts-14. min-w-120. max-w-100%',
+      primary: {
+         tc: ['black', 'white'],
+         bg: ['white', 'black'],
+         s: ['0 0 0 1px rgba(0, 0, 0, 0.5)', '0 0 0 1px rgba(244, 244, 244, 0.8)'],
+      },
+      'primary-hover': {
+         tc: ['white', 'black'],
+         bg: ['black', 'white'],
+      },
+   },
+   '.icon': '@apply w-24. h-24.',
+   '.action-icon': '@apply pos-r frcc h-40. w-40. br-6.',
+   //y puede que añadir todo el typo de addComponents para usar estilos css
+   
+}
+///////////////////////////
+///////////////////////////
+///////////////////////////
+///////////////////////////
+
 const addComponentUtility: AddComponentSupportingDarkmode = (componentClassname, microtailwindStyles, options = {}) => {
 
-   const { tailwindDarkModeClass = 'dark', prefixForComponent = 'use' } = options
+   const { tailwindDarkModeClass = 'dark', prefixForComponent = '' } = options
 
    const utilities: Utilities = {}
 
-   const tailwindComponentClassname = `.${prefixForComponent}-${componentClassname}`
+   const tailwindComponentClassname = prefixForComponent ? `.${prefixForComponent}-${componentClassname}` : `.${componentClassname}`
    const darkModeTailwindComponentClassname = `.${tailwindDarkModeClass} ${tailwindComponentClassname}`
 
    const { apply, ...microtailwindStylesWithoutUseApply } = microtailwindStyles
@@ -88,11 +119,16 @@ export const addUtilitesWithDarkMode: AddUtilitiesWithDarkModeType = (darkModeUt
 
    const addComponentMiddleware = (...args: Parameters<AddComponentSupportingDarkmode>) => {
       const { utilities, component } = addComponentUtility(...args)
-      console.log('component', component)
-      console.log('utilities', utilities)
       addUtilities(utilities)
       addComponents(component)
    }
 
    darkModeUtilities({ addUtility: addUtilityMiddleware, addComponentUtility: addComponentMiddleware })
 }
+
+
+const result = addComponentUtility('button', {
+   apply: '@apply text-red-500',
+})
+
+console.log('result', result)
