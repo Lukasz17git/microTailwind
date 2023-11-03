@@ -6,7 +6,7 @@ type UtilitiesPrefix = keyof typeof utilitiesPrefixMap
 export type TailwindAddUtilitiesOriginalPluginArgument = Record<string, Record<string, string>>
 
 type VariantName = string
-type UtilityVariants = Record<VariantName, ValueSupportingDarkMode>
+export type UtilityVariants = Record<VariantName, ValueSupportingDarkMode>
 
 export type _AddUtility = (
    darkmodeClassname: string,

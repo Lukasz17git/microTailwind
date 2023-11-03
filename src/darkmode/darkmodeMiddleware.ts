@@ -1,26 +1,24 @@
-import { addCustomUtility, addUtility } from "./addUtility"
+import { _addComponents } from "./addComponents"
+import { SimplifiedAddComponentsArgs } from "./addComponents.types"
+import { _addCustomUtility, _addUtility } from "./addUtility"
 import { SimplifiedAddCustomUtilityArgs, SimplifiedAddUtilityArgs } from "./addUtility.types"
-import { ThemeWithDarkmodeSupportMiddleware, DarkmodePluginCreator } from "./darkmodeMiddleware.types"
+import { UsingThemeWithDarkmodeSupportMiddleware, DarkmodePluginCreator } from "./darkmodeMiddleware.types"
 
 
-const themeMiddleware: ThemeWithDarkmodeSupportMiddleware = (themeOrThemeCreator, themeCreator) => ({ addUtilities, addComponents }) => {
+export const usingThemeMiddleware: UsingThemeWithDarkmodeSupportMiddleware = (themeOrThemeCreator, themeCreator) => ({ addUtilities, addComponents }) => {
 
-   const darkmodeClassname = themeMiddleware.darkmodeClassname ?? 'dark'
+   const darkmodeClassname = usingThemeMiddleware.darkmodeClassname ?? 'dark'
 
    const wawThemeAdded = typeof themeOrThemeCreator === 'string'
 
    const theme = wawThemeAdded ? themeOrThemeCreator : ''
    const _themeCreator = wawThemeAdded ? themeCreator as DarkmodePluginCreator : themeOrThemeCreator
 
-   const addUtilityMiddleware = (...args: SimplifiedAddUtilityArgs) => addUtilities(addUtility(darkmodeClassname, theme, ...args))
+   const addUtilityMiddleware = (...args: SimplifiedAddUtilityArgs) => addUtilities(_addUtility(darkmodeClassname, theme, ...args))
 
-   const addCustomUtilityMiddleware = (...args: SimplifiedAddCustomUtilityArgs) => addUtilities(addCustomUtility(darkmodeClassname, theme, ...args))
+   const addCustomUtilityMiddleware = (...args: SimplifiedAddCustomUtilityArgs) => addUtilities(_addCustomUtility(darkmodeClassname, theme, ...args))
 
-   const addComponentsMiddleware = (...args: SimplifiedAddComponentsArgs) => {
-      const { utilities, component } = addComponentUtility(...args)
-      addUtilities(utilities)
-      addComponents(component)
-   }
+   const addComponentsMiddleware = (...args: SimplifiedAddComponentsArgs) => addComponents(_addComponents(darkmodeClassname, theme, ...args))
 
    _themeCreator({
       addUtility: addUtilityMiddleware,

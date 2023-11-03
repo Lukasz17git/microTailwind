@@ -1,3 +1,3 @@
-import { ApplyFormat } from "../darkmode/utilitiesWithDarkMode.types"
+import { ValueUsingApply } from '../darkmode/addComponents.types'
 
-export type UsingApplyRecord = Record<string, ApplyFormat>
+export type UsingApplyRecord = Record<string, ValueUsingApply>

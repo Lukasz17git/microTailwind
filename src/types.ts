@@ -1,4 +1,5 @@
-export { AddComponentSupportingDarkmode, AddComponentSupportingDarkmodeParameter, AddUtilitySupportingDarkmode, AddUtilitySupportingDarkmodeParameter, ApplyFormat } from './darkmode/utilitiesWithDarkMode.types'
+export { AddUtility, AddCustomUtility, UtilityVariants } from './darkmode/addUtility.types'
+export { AddComponents, Components, Component, Variant, ValueUsingApply } from './darkmode/addComponents.types'
 export { MicrotailwindExtendedExtensionsConfig } from './extensions/extensionsPlugin.types'
 export { UsingApplyRecord } from './addOns/addUsingApply.types'
 

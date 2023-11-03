@@ -4,7 +4,7 @@ export const addUsingApply = (components: UsingApplyRecord) => {
    const result: Record<string, { [key: string]: {} }> = {}
 
    for (const [key, value] of Object.entries(components)) {
-      result[key] = { [value]: {} }
+      result[key] = { [value]: '' }
    }
 
    return result
