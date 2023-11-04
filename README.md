@@ -5,10 +5,11 @@
 
 **Includes:**
 
-- **Shorter** utility **classnames** fully compatible with the default ones
-- **Expanded Theme**, with stuff like pixel based values transformed into rem values automatically as dot notation
-- Default and easy **Dark Mode** setup, for new and existing projects **without refactoring**
-- **100% compatibility** with TailwindCSS, its add-ons and any kind of third party plugins
+- **Shorter Classnames:** fully compatible with the default ones, 0 overrides.
+- **Expanded TailwindCss Default Theme**:  pixel based values transformed into rem values automatically as dot notation.
+- **Easy Dark Mode Integration**: add dark mode support to TailwindCSS utilities, default ones and custom ones.
+- **Custom Themes**: creating custom themes is a breeze, supporting also dark mode.
+- **100% Compatibility with TailwindCSS plugins**.
 
 **Also includes**:
 
@@ -19,6 +20,12 @@
 
 ```bash
  npm install -D microtailwind
+```
+
+## Configuration
+
+```javascript
+
 ```
 
 ## Dark Mode
@@ -99,20 +106,10 @@ export default {
 
 ## Expanded Theme
 
-Expands the default TailwindCSS theme with pixel values transformed into rems and more usefull values, like:
-
-- Pixel based values transformed into rem values automatically with the dot notation.
-  - Example: 2. (2px => 0.125rem)
-- More percentage values for the width, height, padding, margin, etc.
-- More "em" values for the width, height, padding, margin, etc.
-- "min", "max", "fit", "a"(auto) values for the width, height, padding, margin, etc.
-- More opacity values.
-- More z-index values.
-- And so on...
+**Expands the default TailwindCSS default theme with pixel values transformed into rems and more usefull utilities.**
 
 ```javascript
 //tailwind.config.js
-
 import { withMicrotailwindExtensions } from 'microtailwind'
 
 export default {
@@ -133,15 +130,24 @@ export default {
 /** margin: auto, width: 100%, gap: 1rem (16px) */
 ```
 
+Includes:
+
+- Pixel based values transformed into rem values automatically with the dot notation.
+  - Example: 2. (2px => 0.125rem)
+- Expanded percentage values for the width, height, padding, margin, etc.
+- Expanded "em" values for the width, height, padding, margin, etc.
+- "min", "max", "fit", "a"(auto) values for the width, height, padding, margin, etc.
+- More opacity values.
+- More z-index values.
+- And many more.
+
 ## Microtailwind Utilities
 
-Adds new utilities which are abreviations of the default TailwindCSS utilities and 100% compatible with the default TailwindCSS utilities, including all the add-ons and features that TailwindCSS provides.
-
-All available abreviations are in the **abreviations file**.
+Shorter TailwindCSS utilities fully compatible with the default ones, 0 overrides.
+Custom shorter Flexbox utilities.
 
 ```javascript
 //tailwind.config.js
-
 import { microtailwind } from 'microtailwind'
 import plugin from 'tailwindcss/plugin'
 
@@ -155,12 +161,14 @@ export default {
 
 ```javascript
 //usage example
-
 <div
- className="flex flex-col justify-center items-center gap-[4px] p-[4px] text-white border-black rounded-[6px]" // tailwindcss
-
- className="fccc g-[4px] p-[4px] tc-white bc-black br-[6px]" // microtailwind
-
- className="fccc g-4. p-4. tc-white bc-black br-6." // microtailwind with expanded theme
+ //tailwindcss
+ className="flex flex-col justify-center items-center gap-[4px] p-[4px] text-white border-black rounded-[6px]"
+ //microtailwind
+ className="fccc g-[4px] p-[4px] tc-white bc-black br-[6px]"
+ //microtailwind with expanded theme
+ className="fccc g-4. p-4. tc-white bc-black br-6."
  ></div>
 ```
+
+All available abreviations are in the file [abreviations.js](https://www.npmjs.com/package/microtailwind?activeTab=code).

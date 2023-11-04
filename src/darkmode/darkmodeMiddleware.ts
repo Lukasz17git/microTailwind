@@ -1,9 +1,10 @@
 import { _addComponents } from "./addComponents"
 import { SimplifiedAddComponentsArgs } from "./addComponents.types"
+import { _addComponentsWithVariants } from "./addComponentsWithVariants"
+import { SimplifiedAddComponentsWithVariantsArgs } from "./addComponentsWithVariants.types"
 import { _addCustomUtility, _addUtility } from "./addUtility"
 import { SimplifiedAddCustomUtilityArgs, SimplifiedAddUtilityArgs } from "./addUtility.types"
 import { UsingThemeWithDarkmodeSupportMiddleware, DarkmodePluginCreator } from "./darkmodeMiddleware.types"
-
 
 export const usingThemeMiddleware: UsingThemeWithDarkmodeSupportMiddleware = (themeOrThemeCreator, themeCreator) => ({ addUtilities, addComponents }) => {
 
@@ -20,9 +21,12 @@ export const usingThemeMiddleware: UsingThemeWithDarkmodeSupportMiddleware = (th
 
    const addComponentsMiddleware = (...args: SimplifiedAddComponentsArgs) => addComponents(_addComponents(darkmodeClassname, theme, ...args))
 
+   const addComponentsWithVariantsMiddleware = (...args: SimplifiedAddComponentsWithVariantsArgs) => addComponents(_addComponentsWithVariants(darkmodeClassname, theme, ...args))
+
    _themeCreator({
       addUtility: addUtilityMiddleware,
       addCustomUtility: addCustomUtilityMiddleware,
-      addComponents: addComponentsMiddleware
+      addComponents: addComponentsMiddleware,
+      addComponentsWithVariants: addComponentsWithVariantsMiddleware,
    })
 }

@@ -1,6 +1,5 @@
 import { _AddUtility, _AddCustomUtility, TailwindAddUtilitiesOriginalPluginArgument } from "./addUtility.types"
 
-
 export const utilitiesPrefixMap = {
    bg: 'backgroundColor',
    tc: 'color',
@@ -13,7 +12,6 @@ export const utilitiesPrefixMap = {
    s: 'boxShadow',
    shadow: 'boxShadow',
 } as const
-
 
 /**
  * @description Add or override a tailwind utility with darkmode support
@@ -38,7 +36,6 @@ export const _addUtility: _AddUtility = (darkmodeClassname, theme, utility, vari
 
    return utilities
 }
-
 
 /**
  * @description Add or override ANY tailwind utility with darkmode support
