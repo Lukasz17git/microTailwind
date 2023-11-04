@@ -7,29 +7,30 @@ export const _addComponents: _AddComponents = (darkmodeClassname, theme, compone
 
    const result: TailwindAddComponentsOriginalPluginArgument = {}
 
-   for (const [componentName, component] of Object.entries(components)) {
+   for (const [componentName, applyOrComponent] of Object.entries(components)) {
       const componentClassname = theme ? `.${theme} ${componentName}` : componentName
-      const darkmodeComponentClassname = `.${darkmodeClassname} ${componentClassname}`
+      const darkmodeComponentClassname = theme ? `.${darkmodeClassname}${componentClassname}` : `.${darkmodeClassname} ${componentClassname}`
 
       // Apply as String
-      if (typeof component === 'string') {
-         result[componentClassname] = { [component]: '' }
+      if (typeof applyOrComponent === 'string') {
+         result[componentClassname] = { [applyOrComponent]: '' }
          continue
       }
 
       // Apply as Array
-      if (Array.isArray(component)) {
-         if (component[0]) result[componentClassname] = { [component[0]]: '' }
-         if (component[1]) result[darkmodeComponentClassname] = { [component[1]]: '' }
+      if (Array.isArray(applyOrComponent)) {
+         if (applyOrComponent[0]) result[componentClassname] = { [applyOrComponent[0]]: '' }
+         if (applyOrComponent[1]) result[darkmodeComponentClassname] = { [applyOrComponent[1]]: '' }
          continue
       }
 
       // Apply as Object
-      const { _apply: apply, ...cssProperties } = component
+      const { _apply: apply, ...cssProperties } = applyOrComponent
 
       if (apply) {
          if (typeof apply === 'string') {
             result[componentClassname] = { [apply]: '' }
+            result[darkmodeComponentClassname] = {}
          }
 
          if (Array.isArray(apply)) {

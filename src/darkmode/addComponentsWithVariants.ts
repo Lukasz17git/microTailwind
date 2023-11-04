@@ -7,7 +7,7 @@ export const _addComponentsWithVariants: _AddComponentsWithVariants = (darkmodeC
 
    for (const [componentName, applyOrVariants] of Object.entries(components)) {
       const componentClassname = theme ? `.${theme} .${componentName}` : `.${componentName}`
-      const darkmodeComponentClassname = `.${darkmodeClassname} ${componentClassname}`
+      const darkmodeComponentClassname = theme ? `.${darkmodeClassname}${componentClassname}` : `.${darkmodeClassname} ${componentClassname}`
 
       // String
       if (typeof applyOrVariants === 'string') {
@@ -36,7 +36,7 @@ export const _addComponentsWithVariants: _AddComponentsWithVariants = (darkmodeC
          }
       }
 
-      const addBaseComponentToApply = (variantApply: string) => componentApply ? `${variantApply} .${componentName}` : variantApply
+      const addBaseComponentToApply = (variantApply: string) => componentApply ? `${variantApply} ${componentName}` : variantApply
 
       // Variants of the component
       for (const [variantName, applyOrVariant] of Object.entries(variants)) {
@@ -46,7 +46,7 @@ export const _addComponentsWithVariants: _AddComponentsWithVariants = (darkmodeC
          {
             const variantFullname = `.${componentName}-${variantName}`
             variantClassname = theme ? `.${theme} ${variantFullname}` : variantFullname
-            darkmodeVariantClassname = `.${darkmodeClassname} ${variantClassname}`
+            darkmodeVariantClassname = theme ? `.${darkmodeClassname}${variantClassname}` : `.${darkmodeClassname} ${variantClassname}`
          }
 
          // String or Array
@@ -67,6 +67,7 @@ export const _addComponentsWithVariants: _AddComponentsWithVariants = (darkmodeC
          if (variantApply) {
             if (typeof variantApply === 'string') {
                result[variantClassname] = { [addBaseComponentToApply(variantApply)]: '' }
+               result[darkmodeVariantClassname] = {}
             }
 
             if (Array.isArray(variantApply)) {
@@ -74,7 +75,7 @@ export const _addComponentsWithVariants: _AddComponentsWithVariants = (darkmodeC
                if (variantApply[1]) result[darkmodeVariantClassname] = { [addBaseComponentToApply(variantApply[1])]: '' }
             }
          } else {
-            result[variantClassname] = {}
+            result[variantClassname] = componentApply ? { [`@apply ${componentName}`]: '' } : {}
             result[darkmodeVariantClassname] = {}
          }
 

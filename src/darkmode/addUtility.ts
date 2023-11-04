@@ -23,14 +23,14 @@ export const _addUtility: _AddUtility = (darkmodeClassname, theme, utility, vari
    const utilities: TailwindAddUtilitiesOriginalPluginArgument = {}
 
    for (const [variant, value] of Object.entries(variants)) {
-      const utilityNameWithoutTheme = `.${utility}-${variant}`
-      const fullUtilityName = theme ? `.${theme} ${utilityNameWithoutTheme}` : utilityNameWithoutTheme
+      const utilityName = theme ? `.${theme} .${utility}-${variant}` : `.${utility}-${variant}`
+      const darkmodeUtilityName = theme ? `.${darkmodeClassname}${utilityName}` : `.${darkmodeClassname} ${utilityName}`
 
       if (Array.isArray(value)) {
-         if (value[0]) utilities[fullUtilityName] = { [cssProperty]: value[0] }
-         if (value[1]) utilities[`.${darkmodeClassname} ${fullUtilityName}`] = { [cssProperty]: value[1] }
+         if (value[0]) utilities[utilityName] = { [cssProperty]: value[0] }
+         if (value[1]) utilities[darkmodeUtilityName] = { [cssProperty]: value[1] }
       } else {
-         utilities[fullUtilityName] = { [cssProperty]: value }
+         utilities[utilityName] = { [cssProperty]: value }
       }
    }
 
@@ -46,13 +46,14 @@ export const _addCustomUtility: _AddCustomUtility = (darkmodeClassname, theme, u
 
    for (const [variant, value] of Object.entries(variants)) {
       const utilityNameWithoutTheme = `.${utility}-${variant}`
-      const fullUtilityName = theme ? `.${theme} ${utilityNameWithoutTheme}` : utilityNameWithoutTheme
+      const utilityName = theme ? `.${theme} ${utilityNameWithoutTheme}` : utilityNameWithoutTheme
+      const darkmodeUtilityName = theme ? `.${darkmodeClassname}${utilityName}` : `.${darkmodeClassname} ${utilityName}`
 
       if (Array.isArray(value)) {
-         if (value[0]) utilities[fullUtilityName] = { [cssProperty]: value[0] }
-         if (value[1]) utilities[`.${darkmodeClassname} ${fullUtilityName}`] = { [cssProperty]: value[1] }
+         if (value[0]) utilities[utilityName] = { [cssProperty]: value[0] }
+         if (value[1]) utilities[darkmodeUtilityName] = { [cssProperty]: value[1] }
       } else {
-         utilities[fullUtilityName] = { [cssProperty]: value }
+         utilities[utilityName] = { [cssProperty]: value }
       }
    }
 
