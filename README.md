@@ -81,6 +81,12 @@ export default {
 }
 ```
 
+## Typescript Types
+
+```typescript
+import {} from 'microtailwind/types'
+```
+
 ## Theme and Dark Mode
 
 Add Dark Mode and Theme support to **already existing TailwindCSS projects.**
