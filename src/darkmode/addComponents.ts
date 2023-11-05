@@ -1,7 +1,5 @@
 import { TailwindAddComponentsOriginalPluginArgument, _AddComponents } from "./addComponents.types"
 
-// Estaria guay que en el componente pueda meter un type string,
-// el cual indique como debe de empezar la key el value, [.${start}]: `@apply ${start}`
 
 export const _addComponents: _AddComponents = (darkmodeClassname, theme, components) => {
 

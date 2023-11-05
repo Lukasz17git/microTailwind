@@ -13,5 +13,8 @@ export type _AddComponents = (
    components: Components
 ) => TailwindAddComponentsOriginalPluginArgument
 
-export type SimplifiedAddComponentsArgs = OmitFirstTwoArguments<Parameters<_AddComponents>>
+type SimplifiedAddComponentsArgs = OmitFirstTwoArguments<Parameters<_AddComponents>>
+/**
+ * @description Add tailwindcss components with darkmode support
+ */
 export type AddComponents = (...args: SimplifiedAddComponentsArgs) => void

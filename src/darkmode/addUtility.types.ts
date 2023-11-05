@@ -24,8 +24,14 @@ export type _AddCustomUtility = (
 ) => TailwindAddUtilitiesOriginalPluginArgument
 
 
-export type SimplifiedAddUtilityArgs = OmitFirstTwoArguments<Parameters<_AddUtility>>
+type SimplifiedAddUtilityArgs = OmitFirstTwoArguments<Parameters<_AddUtility>>
+/**
+ * @description Add or override a tailwindcss utility with darkmode support
+ */
 export type AddUtility = (...args: SimplifiedAddUtilityArgs) => void
 
-export type SimplifiedAddCustomUtilityArgs = OmitFirstTwoArguments<Parameters<_AddCustomUtility>>
+type SimplifiedAddCustomUtilityArgs = OmitFirstTwoArguments<Parameters<_AddCustomUtility>>
+/**
+ * @description Add or override ANY tailwindcss utility with darkmode support
+ */
 export type AddCustomUtility = (...args: SimplifiedAddCustomUtilityArgs) => void

@@ -2,7 +2,7 @@ import { PluginAPI } from "tailwindcss/types/config"
 import { AddCustomUtility, AddUtility } from "./addUtility.types";
 import { Properties } from 'csstype'
 import { AddComponents } from "./addComponents.types";
-import { AddComponentsWithVariants, _AddComponentsWithVariants } from "./addComponentsWithVariants.types";
+import { AddVariants } from "./addComponentVariants.types";
 
 export type CssProperties = keyof Properties
 
@@ -19,7 +19,7 @@ export type DarkmodePluginCreator = (
       addUtility: AddUtility,
       addCustomUtility: AddCustomUtility,
       addComponents: AddComponents,
-      addComponentsWithVariants: AddComponentsWithVariants,
+      addVariants: AddVariants,
    }
 ) => void
 

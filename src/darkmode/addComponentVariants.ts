@@ -1,48 +1,15 @@
 import { TailwindAddComponentsOriginalPluginArgument } from "./addComponents.types"
-import { _AddComponentsWithVariants } from "./addComponentsWithVariants.types"
+import { _AddVariants } from "./addComponentVariants.types"
 
-
-// nesesito poder poner undefined, y también tengo que comprobar el darkmode "circundad"
-
-export const _addComponentsWithVariants: _AddComponentsWithVariants = (darkmodeClassname, theme, components) => {
+export const _addVariants: _AddVariants = (darkmodeClassname, theme, components) => {
 
    const result: TailwindAddComponentsOriginalPluginArgument = {}
 
-   for (const [componentName, applyOrVariants] of Object.entries(components)) {
-      const componentClassname = theme ? `.${theme} .${componentName}` : `.${componentName}`
-      const darkmodeComponentClassname = theme ? `.${darkmodeClassname}${componentClassname}` : `.${darkmodeClassname} ${componentClassname}`
+   for (const [componentNameWithDot, variants] of Object.entries(components)) {
 
-      // String
-      if (typeof applyOrVariants === 'string') {
-         result[componentClassname] = { [applyOrVariants]: '' }
-         continue
-      }
+      const componentName = componentNameWithDot.slice(1)
+      const addBaseComponentToApply = (apply: string) => `${apply} ${componentName}`
 
-      // Array
-      if (Array.isArray(applyOrVariants)) {
-         if (applyOrVariants[0]) result[componentClassname] = { [applyOrVariants[0]]: '' }
-         if (applyOrVariants[1]) result[darkmodeComponentClassname] = { [applyOrVariants[1]]: '' }
-         continue
-      }
-
-      // Object
-      const { _apply: componentApply, ...variants } = applyOrVariants
-
-      if (componentApply) {
-         if (typeof componentApply === 'string') {
-            result[componentClassname] = { [componentApply]: '' }
-         }
-
-         if (Array.isArray(componentApply)) {
-            result[componentClassname] = componentApply[0] ? { [componentApply[0]]: '' } : {}
-            if (componentApply[1]) result[darkmodeComponentClassname] = { [componentApply[1]]: '' }
-         }
-      }
-
-      const addBaseComponentToApply = (variantApply: string) => componentApply ? `${variantApply} ${componentName}` : variantApply
-      // necesito añadir el darkmode base component solamente al darkmode variant
-
-      // Variants of the component
       for (const [variantName, applyOrVariant] of Object.entries(variants)) {
 
          let variantClassname: string
@@ -83,7 +50,7 @@ export const _addComponentsWithVariants: _AddComponentsWithVariants = (darkmodeC
                if (variantApply[0]) resultVariant[addBaseComponentToApply(variantApply[0])] = ''
                if (variantApply[1]) resultDarkmodeVariant[variantApply[1]] = ''
             }
-         } else if (componentApply) {
+         } else {
             resultVariant[`@apply ${componentName}`] = ''
          }
 

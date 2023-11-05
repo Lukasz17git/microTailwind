@@ -13,9 +13,6 @@ export const utilitiesPrefixMap = {
    shadow: 'boxShadow',
 } as const
 
-/**
- * @description Add or override a tailwind utility with darkmode support
- */
 export const _addUtility: _AddUtility = (darkmodeClassname, theme, utility, variants) => {
 
    const cssProperty = utilitiesPrefixMap[utility]
@@ -37,9 +34,6 @@ export const _addUtility: _AddUtility = (darkmodeClassname, theme, utility, vari
    return utilities
 }
 
-/**
- * @description Add or override ANY tailwind utility with darkmode support
- */
 export const _addCustomUtility: _AddCustomUtility = (darkmodeClassname, theme, utility, cssProperty, variants) => {
 
    const utilities: TailwindAddUtilitiesOriginalPluginArgument = {}

@@ -9,12 +9,12 @@
 - **Expanded TailwindCSS Default Theme**:  pixel based values transformed into rem values automatically as dot notation.
 - **Easy Dark Mode Integration**: add dark mode support to TailwindCSS utilities, default ones and custom ones.
 - **Custom Themes**: creating custom themes is a breeze.
-- **100% Compatibility with TailwindCSS plugins**.
+- **100% Compatibility with the rest of TailwindCSS plugins**.
 
 **Also includes**:
 
 - tailwind.config.example file as an example for the tailwind config setup
-- Abreviations.js file to show all the abreviations.
+- Abreviations.js file which includes all microtailwind abreviations.
 
 ## Installation
 
@@ -33,19 +33,19 @@ export default {
    darkMode: 'class',
    theme: {
       extend: withMicrotailwindExtensions({ // extended theme
-         /** your custom extended theme (merges and overrides if colision) */
+         /** your custom extended theme (merges, overrides if colision) */
       }),
    },
    plugins: [
       plugin(microtailwind), // shorter classnames
-      plugin(themeMiddleware(({ addUtility, addComponents })=>{
-         /** Utilities */
+      plugin(themeMiddleware(({ addUtility, addComponents, addVariants  })=>{
+         /** Utilities **/
          addUtility('bg', {
-            'primary': ['aliceblue', '#161616'],
-            'secondary': '#BA0021', // 
+            'primary': ['aliceblue', '#161616'], // creates bg-primary utility [light, dark]
+            'secondary': '#BA0021', // creates bg-secondary utility
             'slate-300': [, '#1F2933'], //adds dark mode to this class
          })
-         /** Components */
+         /** Components **/
          addComponents({
             '.icon': '@apply w-24. h-24.'
             '.button': '@apply min-w-80. py-12. px-16. br-5.'
@@ -54,9 +54,22 @@ export default {
                backgroundColor: ['fuchsia', 'darkmagenta'],
             }
          })
+         /** Component Variants **/
+         addVariants<'.button' | '.icon'>({
+            '.button': { //.button class must be declared somewhere
+               secondary: {
+                  backgroundColor: ['lime', 'orange'],
+               }
+            },
+            '.icon': { //.icon class must be declared somewhere
+               primary: {
+                  backgroundColor: ['lime', 'orange'],
+               }
+            }
+         })
       }))
       plugin(themeMiddleware('snow',({addComponents})=> {
-         /** Components with SNOW THEME */
+         /** Components with SNOW THEME **/
          addComponents({
             '.button-primary': {
                backgroundColor: ['ghostwhite', 'cornflowerblue'],
@@ -70,17 +83,17 @@ export default {
 
 ## Theme and Dark Mode
 
-Add Dark Mode and Theme support to already existing TailwindCSS projects.
+Add Dark Mode and Theme support to **already existing TailwindCSS projects.**
 
-Any Css and Apply values can be:
+Any CSS and @Apply values can be:
 
-- **string:** light mode
+- **string:** light and dark mode
 - **tupple:** [light, dark] or [ , dark] or [light, ]
 
-To be able to use it, you need to add the darkmode class or theme class to the parent element of your app.
+To be able to use it, you need to add the darkmode class and/or theme class to the parent element of your app.
 
 ```html
-<div class="${dark} ${theme}">
+<div class=""> <!-- toggle your dark and theme class -->
       <!-- your app -->
 </div>
 ```
@@ -101,12 +114,12 @@ export default {
    /** Rest of the config */
   plugins: [
       /** without theme */
-      plugin(themeMiddleware(({ addUtility, addComponents }) => {
+      plugin(themeMiddleware(({ addUtility, addComponents, addVariants }) => {
          /** Rest of the code */
       }))
 
       /** with theme */
-      plugin(themeMiddleware('my_theme',({ addUtility, addComponents }) => {
+      plugin(themeMiddleware('my_theme',({ addUtility, addComponents, addVariants }) => {
          /** Rest of the code */
       }))
    ],
@@ -141,7 +154,7 @@ export default {
 
 ### AddCustomUtility
 
-Used to add dark mode support to Custom TailwindCSS Utilities, second parameter is the CSS property name.
+Used to add dark mode support to Custom TailwindCSS Utilities, **second parameter is the CSS property name.**
   
 ```javascript
 //tailwind.config.js
@@ -152,7 +165,7 @@ export default {
    /** Rest of the config */
   plugins: [
       plugin(themeMiddleware(({ addCustomUtility }) => {
-         addCustomUtility('bgcolor', 'background-color', {
+         addCustomUtility('bgcolor', 'background-color', { //or backgroundColor
          /** creates/adds "bgcolor-slate-500" color to #1F2933 in dark mode */
          'slate-500': [, '#1F2933'],
          /** creates/adds "bgcolor-btn-main" with #002D62 color in light mode and #6699CC in dark mode  */
@@ -165,7 +178,7 @@ export default {
 }
 ```
 
-### AddComponentUtility
+### AddComponents
 
 Creates TailwidCSS Components with darkmode support.
 
@@ -185,14 +198,14 @@ export default {
                _apply: '@apply frcc h-40. w-40. br-6. tc-red-800 dark:tc-red-600',
             },
             '.button': {
-               _apply: '@apply h-40. frcc br-8. py-8. px-20. tw-semibold ts-14.',
-               backgroundColor: ['silver', 'beige'],
-               color: ['black', 'white'],
+               _apply: '@apply h-40. frcc br-8. py-8. px-20. tw-semibold ts-14.', //light and dark
+               backgroundColor: ['silver', 'beige'], //[light, dark]
+               color: ['black', 'white'], //[light, dark]
             },
             '.button-primary': {
-               _apply: [, '@apply ts-16. tw-bold'],
-               backgroundColor: ['blue', 'red'],
-               color: ['cadetblue', 'white'],
+               _apply: [, '@apply ts-16. tw-bold'], //[light, dark]
+               backgroundColor: ['blue', 'red'], //[light, dark]
+               color: ['cadetblue', 'white'], //[light, dark]
             },
          })
       })),
@@ -200,9 +213,10 @@ export default {
 }
 ```
 
-### AddComponentsWithVariants
+### AddVariants
 
-Creates TailwidCSS Components with darkmode support and variants.
+Creates TailwidCSS ComponentVariants with darkmode support.
+It accepts T generic to indicate the keys of the components (to prevent typos).
 
 ```javascript
 //tailwind.config.js
@@ -212,19 +226,22 @@ import plugin from 'tailwindcss/plugin'
 export default {
    /** Rest of the config */
   plugins: [
-      plugin(themeMiddleware(({ addComponentsWithVariants }) => {
-         addComponentsWithVariants({
+      plugin(themeMiddleware(({ addVariants }) => {
+         addVariants<T>({
             '.button': {
-               _apply: '@apply h-40. frcc br-8. py-8. px-20. tw-semibold ts-14.',
                primary: {
-                  _apply: '@apply ts-16. tw-bold',
-                  backgroundColor: ['blue', 'red'],
-                  color: ['cadetblue', 'white'],
+                  _apply: '@apply ts-16. tw-bold', //light and dark
+                  backgroundColor: ['blue', 'red'], //[light, dark]
+                  color: ['cadetblue', 'white'], //[light, dark]
                },
                secondary: {
-                  _apply: ['@apply ts-16. tw-bold', '@apply tc-white'],
-                  backgroundColor: ['blue', 'red'],
-                  color: ['cadetblue', 'white'],
+                  backgroundColor: ['blue', 'red'], //[light, dark]
+                  color: ['cadetblue', 'white'], //[light, dark]
+               },
+               tertiary: {
+                  _apply: [, '@apply ts-16. tw-bold'], //[light, dark]
+                  backgroundColor: ['blue', 'red'], //[light, dark]
+                  color: ['cadetblue', 'white'], //[light, dark]
                },
             },
          })

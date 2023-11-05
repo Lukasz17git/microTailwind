@@ -1,27 +1,44 @@
 /** @type {import('tailwindcss').Config} */
 
-import { microtailwind, addUtilitesWithDarkMode, withMicrotailwindExtensions } from 'microtailwind'
+import { microtailwind, microtailwindExperimental, withMicrotailwindExtensions, themeMiddleware } from 'microtailwind'
 import plugin from 'tailwindcss/plugin'
 
+// themeMiddleware.darkmodeClassname = 'dark'
+
 export default {
-   /** rest of the config */
+   darkmode: 'class',
    theme: {
+      // extend: withMicrotailwindExtensions(),
       extend: withMicrotailwindExtensions({
-         /** your custom extended theme (merges and overrides if colision the default and microtailwind extended themes) */
+         /** your theme */
       }),
    },
    plugins: [
       plugin(microtailwind),
-      plugin(addUtilitesWithDarkMode(({ addUtility, addComponentUtility }) => {
+      plugin(microtailwindExperimental),
+      plugin(themeMiddleware(({ addUtility, addComponents }) => {
          addUtility('bg', {
-            /**custom color className: [colorLightMode, colorDarkMode] */
-            'blue': ['#002D62', '#6699CC'], // will generate "bg-blue" with darkmode support
-            'red': ['#EF0107', '#BA0021'], // will generate "bg-red" with darkmode support
+            'primary': ['aliceblue', '#161616']
          })
-         /** custom component name */
-         addComponentUtility('btn-main', {
-            'bg': ['yellow', 'red'], // will generate "bg-btn-main", yellow color for lightmode and red color for darkmode
-            'border': ['red', 'yellow'], // will generate "border-btn-main", red color for lightmode and yellow color for darkmode
+         addUtility('tc', {
+            'primary': ['black', 'white'],
+         })
+         addComponents({
+            '.icon': '@apply w-24. h-24.',
+            '.button': '@apply min-h-40. frcc br-8. py-8. px-20. tw-semibold ts-15. min-w-120. max-w-100% bg-slate-300',
+            '.button-primary': {
+               _apply: '@apply button',
+               backgroundColor: ['blue', 'red'],
+               color: ['cadetblue', 'white'],
+            },
+         })
+         addComponentsWithVariants({
+            'button': {
+               secondary: {
+                  backgroundColor: ['lime', 'orange'],
+                  color: ['orange', 'lime'],
+               }
+            }
          })
       })),
    ],
