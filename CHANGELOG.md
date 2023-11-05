@@ -1,5 +1,15 @@
 # microtailwind
 
+## 1.0.0
+
+### Major Changes
+
+- ca11272: version 1.0
+
+### Patch Changes
+
+- 762e2da: added shadows and improved some names, there is a bug with @apply
+
 ## 0.5.1
 
 ### Patch Changes
