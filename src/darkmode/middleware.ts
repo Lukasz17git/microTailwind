@@ -4,11 +4,11 @@ import { _addComponentsWithVariants } from "./addComponentsWithVariants"
 import { SimplifiedAddComponentsWithVariantsArgs } from "./addComponentsWithVariants.types"
 import { _addCustomUtility, _addUtility } from "./addUtility"
 import { SimplifiedAddCustomUtilityArgs, SimplifiedAddUtilityArgs } from "./addUtility.types"
-import { UsingThemeWithDarkmodeSupportMiddleware, DarkmodePluginCreator } from "./darkmodeMiddleware.types"
+import { UsingThemeWithDarkmodeSupportMiddleware, DarkmodePluginCreator } from "./middleware.types"
 
-export const usingThemeMiddleware: UsingThemeWithDarkmodeSupportMiddleware = (themeOrThemeCreator, themeCreator) => ({ addUtilities, addComponents }) => {
+export const themeMiddleware: UsingThemeWithDarkmodeSupportMiddleware = (themeOrThemeCreator, themeCreator) => ({ addUtilities, addComponents }) => {
 
-   const darkmodeClassname = usingThemeMiddleware.darkmodeClassname ?? 'dark'
+   const darkmodeClassname = themeMiddleware.darkmodeClassname ?? 'dark'
 
    const wawThemeAdded = typeof themeOrThemeCreator === 'string'
 

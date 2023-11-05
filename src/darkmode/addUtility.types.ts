@@ -1,6 +1,6 @@
 import { OmitFirstTwoArguments } from "../utils/typeHelpers";
 import { utilitiesPrefixMap } from "./addUtility";
-import { CssProperties, FlexibleValueSupportingDarkMode } from "./darkmodeMiddleware.types";
+import { CssProperties, FlexibleValueSupportingDarkMode } from "./middleware.types";
 
 type UtilitiesPrefix = keyof typeof utilitiesPrefixMap
 export type TailwindAddUtilitiesOriginalPluginArgument = Record<string, Record<string, string>>

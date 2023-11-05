@@ -10,8 +10,9 @@ export type ValueSupportingDarkMode = string | [string] | [string, string]
 export type FlexibleValueSupportingDarkMode = ValueSupportingDarkMode | [undefined, string]
 
 export type ValueUsingApply = `@apply ${string}`
-export type ValueUsingApplySupportingDarkMode = ValueUsingApply | [ValueUsingApply] | [ValueUsingApply, ValueUsingApply]
-export type ApplyObject = { _apply: ValueUsingApplySupportingDarkMode }
+type ValueUsingApplySupportingDarkMode = ValueUsingApply | [ValueUsingApply] | [ValueUsingApply, ValueUsingApply]
+export type FlexibleValueUsingApplySupportingDarkMode = ValueUsingApplySupportingDarkMode | [undefined, ValueUsingApply]
+export type ApplyObject = { _apply: FlexibleValueUsingApplySupportingDarkMode }
 
 export type DarkmodePluginCreator = (
    darkmodeCreator: {

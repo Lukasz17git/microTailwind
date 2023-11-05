@@ -1,4 +1,4 @@
-import { ExtensionSizeThemeParameter, Extensions, MicrotailwindExtendedExtensionsConfig, extendedExtensions } from './extensionsPlugin.types';
+import { ExtensionSizeThemeParameter, Extensions, ExtensionsConfig, extendedExtensions } from './extensionsPlugin.types';
 
 const pixelSpacingExtension = {
    "0.": '0px',
@@ -341,12 +341,12 @@ export const microtailwindExtensions = {
    scale
 }
 
-export const withMicrotailwindExtensions = (customExtensions: Extensions = {}, config: MicrotailwindExtendedExtensionsConfig = {}) => {
+export const withMicrotailwindExtensions = (customExtensions: Extensions = {}, config: ExtensionsConfig = {}) => {
 
    const extendedExtensions: extendedExtensions = { ...customExtensions }
 
    for (const [extensionName, microtailwindExtension] of Object.entries(microtailwindExtensions)) {
-      const configKey = `disable_${extensionName}` as keyof MicrotailwindExtendedExtensionsConfig
+      const configKey = `disable_${extensionName}` as keyof ExtensionsConfig
       if (config[configKey]) continue
       const customExtension: object | ((args: ExtensionSizeThemeParameter) => object) | undefined = customExtensions[extensionName]      //this can be an object or a function
       

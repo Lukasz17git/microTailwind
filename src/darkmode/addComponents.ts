@@ -27,32 +27,34 @@ export const _addComponents: _AddComponents = (darkmodeClassname, theme, compone
       // Apply as Object
       const { _apply: apply, ...cssProperties } = applyOrComponent
 
+      result[componentClassname] = {}
+      result[darkmodeComponentClassname] = {}
+      //remove ts-error for the next lines
+      const resultComponent = result[componentClassname]!
+      const resultDarkmodeComponent = result[darkmodeComponentClassname]!
+
       if (apply) {
          if (typeof apply === 'string') {
-            result[componentClassname] = { [apply]: '' }
-            result[darkmodeComponentClassname] = {}
+            resultComponent[apply] = ''
          }
 
          if (Array.isArray(apply)) {
-            if (apply[0]) result[componentClassname] = { [apply[0]]: '' }
-            if (apply[1]) result[darkmodeComponentClassname] = { [apply[1]]: '' }
+            if (apply[0]) resultComponent[apply[0]] = ''
+            if (apply[1]) resultDarkmodeComponent[apply[1]] = ''
          }
-      } else {
-         result[componentClassname] = {}
-         result[darkmodeComponentClassname] = {}
       }
 
 
       // Css properties
       for (const [cssProperty, supportingDarkmodeValue] of Object.entries(cssProperties)) {
          if (typeof supportingDarkmodeValue === 'string') {
-            result[componentClassname]![cssProperty] = supportingDarkmodeValue
+            resultComponent[cssProperty] = supportingDarkmodeValue
             continue
          }
 
          if (Array.isArray(supportingDarkmodeValue)) {
-            if (supportingDarkmodeValue[0]) result[componentClassname]![cssProperty] = supportingDarkmodeValue[0]
-            if (supportingDarkmodeValue[1]) result[darkmodeComponentClassname]![cssProperty] = supportingDarkmodeValue[1]
+            if (supportingDarkmodeValue[0]) resultComponent[cssProperty] = supportingDarkmodeValue[0]
+            if (supportingDarkmodeValue[1]) resultDarkmodeComponent[cssProperty] = supportingDarkmodeValue[1]
             continue
          }
       }

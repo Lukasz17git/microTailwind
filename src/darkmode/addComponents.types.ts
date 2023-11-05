@@ -1,8 +1,7 @@
 import { OmitFirstTwoArguments } from "../utils/typeHelpers"
-import { ApplyObject, CssProperties, ValueSupportingDarkMode, ValueUsingApply, ValueUsingApplySupportingDarkMode } from "./darkmodeMiddleware.types"
+import { ApplyObject, CssProperties, FlexibleValueUsingApplySupportingDarkMode, ValueSupportingDarkMode, ValueUsingApply } from "./middleware.types"
 
-
-export type Component = ValueUsingApplySupportingDarkMode | Partial<ApplyObject & Record<CssProperties, ValueSupportingDarkMode>>
+export type Component = FlexibleValueUsingApplySupportingDarkMode | Partial<ApplyObject & Record<CssProperties, ValueSupportingDarkMode>>
 type ComponentName = `.${string}`
 export type Components = Record<ComponentName, Component>
 

@@ -1,20 +1,20 @@
 
 # MICROTAILWIND
 
-**TailwindCSS** with **usefull add-ons.**
+**TailwindCSS** extension with **usefull add-ons.**
 
 **Includes:**
 
-- **Shorter Classnames:** fully compatible with the default ones, 0 overrides.
-- **Expanded TailwindCss Default Theme**:  pixel based values transformed into rem values automatically as dot notation.
+- **Shorter Classnames:** 100% compatibility with the default ones.
+- **Expanded TailwindCSS Default Theme**:  pixel based values transformed into rem values automatically as dot notation.
 - **Easy Dark Mode Integration**: add dark mode support to TailwindCSS utilities, default ones and custom ones.
-- **Custom Themes**: creating custom themes is a breeze, supporting also dark mode.
+- **Custom Themes**: creating custom themes is a breeze.
 - **100% Compatibility with TailwindCSS plugins**.
 
 **Also includes**:
 
 - tailwind.config.example file as an example for the tailwind config setup
-- Abreviations.js file to show all the abreviations which are included in the { microtailwind } section of this package.
+- Abreviations.js file to show all the abreviations.
 
 ## Installation
 
@@ -25,86 +25,215 @@
 ## Configuration
 
 ```javascript
+//tailwind.config.js
+import { microtailwind, withMicrotailwindExtensions, themeMiddleware } from 'microtailwind'
 
+export default {
+   /** rest of the config */
+   darkMode: 'class',
+   theme: {
+      extend: withMicrotailwindExtensions({ // extended theme
+         /** your custom extended theme (merges and overrides if colision) */
+      }),
+   },
+   plugins: [
+      plugin(microtailwind), // shorter classnames
+      plugin(themeMiddleware(({ addUtility, addComponents })=>{
+         /** Utilities */
+         addUtility('bg', {
+            'primary': ['aliceblue', '#161616'],
+            'secondary': '#BA0021', // 
+            'slate-300': [, '#1F2933'], //adds dark mode to this class
+         })
+         /** Components */
+         addComponents({
+            '.icon': '@apply w-24. h-24.'
+            '.button': '@apply min-w-80. py-12. px-16. br-5.'
+            '.button-primary': {
+               _apply: '@apply .button',
+               backgroundColor: ['fuchsia', 'darkmagenta'],
+            }
+         })
+      }))
+      plugin(themeMiddleware('snow',({addComponents})=> {
+         /** Components with SNOW THEME */
+         addComponents({
+            '.button-primary': {
+               backgroundColor: ['ghostwhite', 'cornflowerblue'],
+            }
+         })
+
+      }))
+   ],
+}
 ```
 
-## Dark Mode
+## Theme and Dark Mode
 
-**Can quickly add Dark Mode support to already existing TailwindCSS projects without refactoring neither creating CSS variables.**
+Add Dark Mode and Theme support to already existing TailwindCSS projects.
 
-100% compatible with TailwindCSS projects, its fully independent of the other utilities of this package.
+Any Css and Apply values can be:
 
-It has two functions, **addUtility** and **addComponentUtility**, both of them are used to add dark mode support to TailwindCSS utilities.
+- **string:** light mode
+- **tupple:** [light, dark] or [ , dark] or [light, ]
 
-**AddUtility** is used to add dark mode support to TailwindCSS utilities, default ones and custom ones.
+To be able to use it, you need to add the darkmode class or theme class to the parent element of your app.
 
-**AddComponentUtility** is used to create dark mode support to more than one utility with the same custom value name. (for example bg-btn-man, border-btn-main, text-btn-main)
+```html
+<div class="${dark} ${theme}">
+      <!-- your app -->
+</div>
+```
 
-### Dark Mode - AddUtility
+### ThemeMiddleware
 
-Create new utilites with dark mode support or add dark mode support to already defined ones by using the **addUtility** function, where the parameters are:
+Middleware function to add theme and dark mode support to TailwindCSS utilities and components.
 
-- First parameter: the base TailwindCSS utility name or base Microtailwind utility name.
-- Second parameter: an object where the keys are the rest of the tailwind utility name, and the values being an array/string with ["lightmode", "darkmode"] colors.
-- Third parameter: config.
+```javascript
+//tailwind.config.js
+import { themeMiddleware } from 'microtailwind'
+import plugin from 'tailwindcss/plugin'
+
+/** To be able to change the default darkmode classname*/
+themeMiddleware.darkmodeClassname = 'custom_dark' // default is 'dark'
+
+export default {
+   /** Rest of the config */
+  plugins: [
+      /** without theme */
+      plugin(themeMiddleware(({ addUtility, addComponents }) => {
+         /** Rest of the code */
+      }))
+
+      /** with theme */
+      plugin(themeMiddleware('my_theme',({ addUtility, addComponents }) => {
+         /** Rest of the code */
+      }))
+   ],
+}
+```
+
+### AddUtility
+
+Used to add dark mode support to TailwindCSS Utilities, default ones or custom ones.
   
 ```javascript
 //tailwind.config.js
-import { addUtilitesWithDarkMode } from 'microtailwind'
+import { themeMiddleware } from 'microtailwind'
 import plugin from 'tailwindcss/plugin'
 
 export default {
    /** Rest of the config */
   plugins: [
-      plugin(addUtilitesWithDarkMode(({ addUtility }) => {
+      plugin(themeMiddleware('theme',({ addUtility }) => {
          addUtility('bg', {
+         /** creates/adds "bg-slate-500" color to #1F2933 in dark mode */
          'slate-500': [, '#1F2933'],
-         /** will change the color of "bg-slate-500" to #1F2933 in dark mode  */
+         /** creates/adds "bg-btn-main" with #002D62 color in light mode and #6699CC in dark mode  */
          'btn-main': ['#002D62', '#6699CC'],
-         /** will create/overwrite "bg-btn-main" which will have the color #002D62 in light mode and #6699CC in dark mode  */
+         /** creates/adds "bg-btn-secondary" which will have the color #BA0021 in light mode and dark mode */
          'btn-secondary': '#BA0021', // or ['#BA0021']
-         /** will create/overwrite "bg-btn-secondary" which will have the color #BA0021 in light mode and dark mode */
          })
       }))
    ],
 }
 ```
 
-### Dark Mode - AddComponentUtility
+### AddCustomUtility
 
-Create multiple tailwind utilities with Dark Mode support sharing the same custom name by using the **addComponentUtility** function, where the parameters are:
-
-- First parameter: the custom name.
-- Second parameter: object with the keys being th ebase TailwindCSS utility name or base Microtailwind utility name, and the value being an array/string with the color for light mode and the color for dark mode.
-- Third parameter: config.
-
+Used to add dark mode support to Custom TailwindCSS Utilities, second parameter is the CSS property name.
+  
 ```javascript
 //tailwind.config.js
-import { addUtilitesWithDarkMode } from 'microtailwind'
+import { themeMiddleware } from 'microtailwind'
 import plugin from 'tailwindcss/plugin'
 
 export default {
    /** Rest of the config */
   plugins: [
-      plugin(addUtilitesWithDarkMode(({ addComponentUtility }) => {
-               /** custom component name: btn-main */
-         addComponentUtility('btn-main', {
-            'bg': ['yellow', 'red'], 
-            // will create/overwrite "bg-btn-main" which uses yellow for lightmode and red for darkmode
-            'border': ['#002D62', '#6699CC'], 
-            // will create/overwrite "border-btn-main" which uses #002D62 for lightmode and #6699CC for darkmode
-            'text': ['#000', '#fff']
-            // will create/overwrite "text-btn-main" which uses #000 for lightmode and #fff for darkmode
+      plugin(themeMiddleware(({ addCustomUtility }) => {
+         addCustomUtility('bgcolor', 'background-color', {
+         /** creates/adds "bgcolor-slate-500" color to #1F2933 in dark mode */
+         'slate-500': [, '#1F2933'],
+         /** creates/adds "bgcolor-btn-main" with #002D62 color in light mode and #6699CC in dark mode  */
+         'btn-main': ['#002D62', '#6699CC'],
+         /** creates/adds "bgcolor-btn-secondary" which will have the color #BA0021 in light mode and dark mode */
+         'btn-secondary': '#BA0021', // or ['#BA0021']
          })
-         // also generates the "component-btn-main" which has all the styles already applied
+      }))
+   ],
+}
+```
+
+### AddComponentUtility
+
+Creates TailwidCSS Components with darkmode support.
+
+```javascript
+//tailwind.config.js
+import { themeMiddleware } from 'microtailwind'
+import plugin from 'tailwindcss/plugin'
+
+export default {
+   /** Rest of the config */
+  plugins: [
+      plugin(themeMiddleware(({ addComponents }) => {
+         addComponents({
+            '.icon':  '@apply w-24. h-24.',
+            '.label': [, '@apply tc-dark dark:tc-white'],
+            '.action-icon': {
+               _apply: '@apply frcc h-40. w-40. br-6. tc-red-800 dark:tc-red-600',
+            },
+            '.button': {
+               _apply: '@apply h-40. frcc br-8. py-8. px-20. tw-semibold ts-14.',
+               backgroundColor: ['silver', 'beige'],
+               color: ['black', 'white'],
+            },
+            '.button-primary': {
+               _apply: [, '@apply ts-16. tw-bold'],
+               backgroundColor: ['blue', 'red'],
+               color: ['cadetblue', 'white'],
+            },
+         })
       })),
    ],
 }
 ```
 
-**Also the <u>addComponentUtility</u> function will create the <u>"component-CUSTOM_NAME"</u> utility which <u>applies all the styles at the same time.</u>**
+### AddComponentsWithVariants
 
-## Expanded Theme
+Creates TailwidCSS Components with darkmode support and variants.
+
+```javascript
+//tailwind.config.js
+import { themeMiddleware } from 'microtailwind'
+import plugin from 'tailwindcss/plugin'
+
+export default {
+   /** Rest of the config */
+  plugins: [
+      plugin(themeMiddleware(({ addComponentsWithVariants }) => {
+         addComponentsWithVariants({
+            '.button': {
+               _apply: '@apply h-40. frcc br-8. py-8. px-20. tw-semibold ts-14.',
+               primary: {
+                  _apply: '@apply ts-16. tw-bold',
+                  backgroundColor: ['blue', 'red'],
+                  color: ['cadetblue', 'white'],
+               },
+               secondary: {
+                  _apply: ['@apply ts-16. tw-bold', '@apply tc-white'],
+                  backgroundColor: ['blue', 'red'],
+                  color: ['cadetblue', 'white'],
+               },
+            },
+         })
+      })),
+   ],
+}
+```
+
+## Expanded TailwindCSS Default Theme
 
 **Expands the default TailwindCSS default theme with pixel values transformed into rems and more usefull utilities.**
 
@@ -116,7 +245,7 @@ export default {
    /** rest of the config */
    theme: {
       extend: withMicrotailwindExtensions({
-         /** your custom extended theme (merges and overrides if colision the default and microtailwind extended themes) */
+         /** your theme (merges and overrides if colision) */
       }),
    }
 }
@@ -141,9 +270,9 @@ Includes:
 - More z-index values.
 - And many more.
 
-## Microtailwind Utilities
+## Microtailwind Abreviations
 
-Shorter TailwindCSS utilities fully compatible with the default ones, 0 overrides.
+Shorter TailwindCSS utilities fully compatible with the default ones.
 Custom shorter Flexbox utilities.
 
 ```javascript

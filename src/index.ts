@@ -1,5 +1,5 @@
 import { microtailwind, microtailwindExperimental } from './microtailwind/microTailwindPlugin'
 import { withMicrotailwindExtensions } from './extensions/extensionsPlugin'
-import { usingThemeMiddleware } from './darkmode/darkmodeMiddleware'
+import { themeMiddleware } from './darkmode/middleware'
 
-export { microtailwind, microtailwindExperimental, withMicrotailwindExtensions, usingThemeMiddleware }
+export { microtailwind, microtailwindExperimental, withMicrotailwindExtensions, themeMiddleware }

@@ -8,6 +8,6 @@ export type Extensions = NonNullable<NonNullable<Config['theme']>['extend']>
 
 export type ExtendedThemeConfig = { minHeight: any, minWidth: any, maxWidth: any }
 
-export type MicrotailwindExtendedExtensionsConfig = Partial<Record<`disable_${keyof typeof microtailwindExtensions}`, boolean>>
+export type ExtensionsConfig = Partial<Record<`disable_${keyof typeof microtailwindExtensions}`, boolean>>
 
 export type extendedExtensions = Extensions & Partial<ExtendedThemeConfig>
