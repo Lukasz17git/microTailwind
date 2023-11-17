@@ -1,12 +1,12 @@
 import { OmitFirstTwoArguments } from "../utils/typeHelpers";
 import { utilitiesPrefixMap } from "./addUtility";
-import { CssProperties, FlexibleValueSupportingDarkMode } from "./middleware.types";
+import { CssProperties, FlexibleValueSupportingDarkMode, FlexibleValueUsingApplySupportingDarkMode } from "./middleware.types";
 
 type UtilitiesPrefix = keyof typeof utilitiesPrefixMap
 export type TailwindAddUtilitiesOriginalPluginArgument = Record<string, Record<string, string>>
 
 type VariantName = string
-export type UtilityVariants = Record<VariantName, FlexibleValueSupportingDarkMode>
+export type UtilityVariants = Record<VariantName, FlexibleValueSupportingDarkMode | FlexibleValueUsingApplySupportingDarkMode>
 
 export type _AddUtility = (
    darkmodeClassname: string,
@@ -18,7 +18,7 @@ export type _AddUtility = (
 export type _AddCustomUtility = (
    darkmodeClassname: string,
    theme: string,
-   utility: UtilitiesPrefix,
+   utility: string,
    cssProperty: CssProperties,
    variants: UtilityVariants,
 ) => TailwindAddUtilitiesOriginalPluginArgument

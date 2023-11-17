@@ -1,4 +1,5 @@
 import { _AddUtility, _AddCustomUtility, TailwindAddUtilitiesOriginalPluginArgument } from "./addUtility.types"
+import { ValueUsingApply } from "./middleware.types"
 
 export const utilitiesPrefixMap = {
    bg: 'backgroundColor',
@@ -13,6 +14,8 @@ export const utilitiesPrefixMap = {
    shadow: 'boxShadow',
 } as const
 
+const valueUsingApply: ValueUsingApply = '@apply '
+
 export const _addUtility: _AddUtility = (darkmodeClassname, theme, utility, variants) => {
 
    const cssProperty = utilitiesPrefixMap[utility]
@@ -24,10 +27,26 @@ export const _addUtility: _AddUtility = (darkmodeClassname, theme, utility, vari
       const darkmodeUtilityName = theme ? `.${darkmodeClassname}${utilityName}` : `.${darkmodeClassname} ${utilityName}`
 
       if (Array.isArray(value)) {
-         if (value[0]) utilities[utilityName] = { [cssProperty]: value[0] }
-         if (value[1]) utilities[darkmodeUtilityName] = { [cssProperty]: value[1] }
+         if (value[0]) {
+            if (value[0].startsWith(valueUsingApply)) {
+               utilities[utilityName] = { [value[0]]: "" }
+            } else {
+               utilities[utilityName] = { [cssProperty]: value[0] }
+            }
+         }
+         if (value[1]) {
+            if (value[1].startsWith(valueUsingApply)) {
+               utilities[darkmodeUtilityName] = { [value[1]]: "" }
+            } else {
+               utilities[darkmodeUtilityName] = { [cssProperty]: value[1] }
+            }
+         }
       } else {
-         utilities[utilityName] = { [cssProperty]: value }
+         if (value.startsWith(valueUsingApply)) {
+            utilities[utilityName] = { [value]: "" }
+         } else {
+            utilities[utilityName] = { [cssProperty]: value }
+         }
       }
    }
 
@@ -43,11 +62,27 @@ export const _addCustomUtility: _AddCustomUtility = (darkmodeClassname, theme, u
       const utilityName = theme ? `.${theme} ${utilityNameWithoutTheme}` : utilityNameWithoutTheme
       const darkmodeUtilityName = theme ? `.${darkmodeClassname}${utilityName}` : `.${darkmodeClassname} ${utilityName}`
 
-      if (Array.isArray(value)) {
-         if (value[0]) utilities[utilityName] = { [cssProperty]: value[0] }
-         if (value[1]) utilities[darkmodeUtilityName] = { [cssProperty]: value[1] }
-      } else {
-         utilities[utilityName] = { [cssProperty]: value }
+      if (Array.isArray(value)) {         
+         if (value[0]) {
+            if (value[0].startsWith(valueUsingApply)) {
+               utilities[utilityName] = { [value[0]]: "" }
+            } else {
+               utilities[utilityName] = { [cssProperty]: value[0] }
+            }
+         }
+         if (value[1]) {
+            if (value[1].startsWith(valueUsingApply)) {
+               utilities[darkmodeUtilityName] = { [value[1]]: "" }
+            } else {
+               utilities[darkmodeUtilityName] = { [cssProperty]: value[1] }
+            }
+         }
+      } else {         
+         if (value.startsWith(valueUsingApply)) {
+            utilities[utilityName] = { [value]: "" }
+         } else {
+            utilities[utilityName] = { [cssProperty]: value }
+         }
       }
    }
 
