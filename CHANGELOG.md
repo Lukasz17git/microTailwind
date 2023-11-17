@@ -1,5 +1,15 @@
 # microtailwind
 
+## 1.1.0
+
+### Minor Changes
+
+- c7e5bc7: simplified addVariants function from addComponentsWithVariants
+
+### Patch Changes
+
+- 855eadb: added ts types to readme
+
 ## 1.0.0
 
 ### Major Changes
