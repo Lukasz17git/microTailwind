@@ -1,5 +1,11 @@
 # microtailwind
 
+## 1.2.0
+
+### Minor Changes
+
+- 405f4f4: added @apply to utility and customUtility, fixed customUtility first parameter type
+
 ## 1.1.0
 
 ### Minor Changes
