@@ -7,27 +7,24 @@ export const _addVariants: _AddVariants = (darkmodeClassname, theme, components)
 
    for (const [componentNameWithDot, variants] of Object.entries(components)) {
 
-      const componentName = componentNameWithDot.slice(1)
-      const addBaseComponentToApply = (apply: string) => `${apply} ${componentName}`
-
       for (const [variantName, applyOrVariant] of Object.entries(variants)) {
 
          let variantClassname: string
          let darkmodeVariantClassname: string
          {
-            const variantFullname = `.${componentName}-${variantName}`
+            const variantFullname = `${componentNameWithDot}-${variantName}`
             variantClassname = theme ? `.${theme} ${variantFullname}` : variantFullname
             darkmodeVariantClassname = theme ? `.${darkmodeClassname}${variantClassname}` : `.${darkmodeClassname} ${variantClassname}`
          }
 
          // String or Array
          if (typeof applyOrVariant === 'string') {
-            result[variantClassname] = { [addBaseComponentToApply(applyOrVariant)]: '' }
+            result[variantClassname] = { [applyOrVariant]: '' }
             continue
          }
 
          if (Array.isArray(applyOrVariant)) {
-            if (applyOrVariant[0]) result[variantClassname] = { [addBaseComponentToApply(applyOrVariant[0])]: '' }
+            if (applyOrVariant[0]) result[variantClassname] = { [applyOrVariant[0]]: '' }
             if (applyOrVariant[1]) result[darkmodeVariantClassname] = { [applyOrVariant[1]]: '' }
             continue
          }
@@ -43,15 +40,13 @@ export const _addVariants: _AddVariants = (darkmodeClassname, theme, components)
 
          if (variantApply) {
             if (typeof variantApply === 'string') {
-               resultVariant[addBaseComponentToApply(variantApply)] = ''
+               resultVariant[variantApply] = ''
             }
 
             if (Array.isArray(variantApply)) {
-               if (variantApply[0]) resultVariant[addBaseComponentToApply(variantApply[0])] = ''
+               if (variantApply[0]) resultVariant[variantApply[0]] = ''
                if (variantApply[1]) resultDarkmodeVariant[variantApply[1]] = ''
             }
-         } else {
-            resultVariant[`@apply ${componentName}`] = ''
          }
 
          // Css properties

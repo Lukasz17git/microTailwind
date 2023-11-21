@@ -30,7 +30,7 @@ import { microtailwind, withMicrotailwindExtensions, themeMiddleware } from 'mic
 
 export default {
    /** rest of the config */
-   darkMode: 'class',
+   darkMode: 'class', // IMPORTANT
    theme: {
       extend: withMicrotailwindExtensions({ // extended theme
          /** your custom extended theme (merges, overrides if colision) */
@@ -56,12 +56,14 @@ export default {
          })
          /** Component Variants **/
          addVariants<'.button' | '.icon'>({
-            '.button': { //.button class must be declared somewhere
+            '.button': {
+               primary: ['@apply bg-sky-600 text-sky-200', '@apply bg-sky-400 text-sky-700']
                secondary: {
+                  _apply: ['@apply text-black', '@apply text-white']
                   backgroundColor: ['lime', 'orange'],
                }
             },
-            '.icon': { //.icon class must be declared somewhere
+            '.icon': {
                primary: {
                   backgroundColor: ['lime', 'orange'],
                }
@@ -236,7 +238,7 @@ export default {
          addVariants<T>({
             '.button': {
                primary: {
-                  _apply: '@apply ts-16. tw-bold', //light and dark
+                  _apply: '@apply .button ts-16. tw-bold', //light and dark, button class added too
                   backgroundColor: ['blue', 'red'], //[light, dark]
                   color: ['cadetblue', 'white'], //[light, dark]
                },
@@ -249,6 +251,8 @@ export default {
                   backgroundColor: ['blue', 'red'], //[light, dark]
                   color: ['cadetblue', 'white'], //[light, dark]
                },
+               default: ["@apply bg-gray-900 text-gray-50 shadow hover:bg-gray-900/90","@apply bg-gray-50 text-gray-900 hover:bg-gray-50/90"]
+               destructive: "@apply bg-red-500 text-gray-50 shadow-sm hover:bg-red-500/90 dark:bg-red-900 dark:text-gray-50 dark:hover:bg-red-900/90"
             },
          })
       })),
