@@ -1,5 +1,11 @@
 # microtailwind
 
+## 1.3.0
+
+### Minor Changes
+
+- e5b1242: changed behaviour of Variants
+
 ## 1.2.0
 
 ### Minor Changes
