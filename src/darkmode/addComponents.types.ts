@@ -1,5 +1,5 @@
-import { OmitFirstTwoArguments } from "../utils/typeHelpers"
-import { ApplyObject, CssProperties, FlexibleValueUsingApplySupportingDarkMode, ValueSupportingDarkMode, ValueUsingApply } from "./middleware.types"
+import { CssProperties, OmitFirstTwoArguments } from "../utils/typeHelpers"
+import { ApplyObject, FlexibleValueUsingApplySupportingDarkMode, ValueSupportingDarkMode, ValueUsingApply } from "./middleware.types"
 
 export type Component = FlexibleValueUsingApplySupportingDarkMode | Partial<ApplyObject & Record<CssProperties, ValueSupportingDarkMode>>
 type ComponentName = `.${string}`

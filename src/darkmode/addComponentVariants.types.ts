@@ -1,6 +1,6 @@
 import { TailwindAddComponentsOriginalPluginArgument } from "./addComponents.types"
-import { ApplyObject, CssProperties, FlexibleValueUsingApplySupportingDarkMode, ValueSupportingDarkMode } from "./middleware.types"
-import { OmitFirstTwoArguments } from "../utils/typeHelpers"
+import { ApplyObject, FlexibleValueUsingApplySupportingDarkMode, ValueSupportingDarkMode } from "./middleware.types"
+import { CssProperties, OmitFirstTwoArguments } from "../utils/typeHelpers"
 
 type Variant = FlexibleValueUsingApplySupportingDarkMode | Partial<ApplyObject & Record<CssProperties, ValueSupportingDarkMode>>
 type VariantName = string

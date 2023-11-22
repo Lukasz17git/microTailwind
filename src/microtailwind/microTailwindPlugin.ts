@@ -3,22 +3,9 @@
 import { parseBoxShadowValue, formatBoxShadowValue } from 'tailwindcss/src/util/parseBoxShadowValue'
 //@ts-ignore
 import flattenColorPalette from 'tailwindcss/src/util/flattenColorPalette'
-//@ts-ignore
-import { formatColor, parseColor } from 'tailwindcss/src/util/color'
-import { CSSRuleObject, PluginCreator } from "tailwindcss/types/config"
+import { PluginCreator } from "tailwindcss/types/config"
+import { colorWithOpacity } from '../utils/colorWithOpacity'
 
-
-const colorWithOpacity = (color: string | ((v: any) => any), opacityVariableName: string, returnPropertiesCallback: (color: string) => CSSRuleObject ) => {
-   if (typeof color === 'function') {
-      const withOpacity = color({ opacityVariable: opacityVariableName, opacityValue: `var(${opacityVariableName})` })
-      return { [opacityVariableName]: '1', ...returnPropertiesCallback(withOpacity) }
-   }
-   const parsed = parseColor(color)
-   if (parsed === null) return { ...returnPropertiesCallback(color) }
-   if (parsed.alpha !== undefined) return { ...returnPropertiesCallback(color) }
-   const withOpacity = formatColor({ ...parsed, alpha: `var(${opacityVariableName})` })
-   return { [opacityVariableName]: '1', ...returnPropertiesCallback(withOpacity) }
-}
 
 const transformShadowValue = (value: any) => {
    if (typeof value === 'function') value = value({})
