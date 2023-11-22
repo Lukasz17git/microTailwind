@@ -1,5 +1,11 @@
 # microtailwind
 
+## 1.4.0
+
+### Minor Changes
+
+- 8005bd3: added opacity to addUtilities if you add a color
+
 ## 1.3.0
 
 ### Minor Changes
