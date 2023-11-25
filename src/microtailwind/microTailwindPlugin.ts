@@ -32,6 +32,7 @@ export const microtailwind: PluginCreator = ({ addVariant, addUtilities, matchUt
    addVariant('h', '&:hover')
    addVariant('f', '&:focus')
    addVariant('hf', ['&:hover', '&:focus'])
+   addVariant('d', ':is(.dark &)')
 
    // SHADOW
    matchUtilities(
