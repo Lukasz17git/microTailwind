@@ -1,5 +1,11 @@
 # microtailwind
 
+## 1.4.1
+
+### Patch Changes
+
+- fe9e38c: added d: variant as dark: alternative
+
 ## 1.4.0
 
 ### Minor Changes
