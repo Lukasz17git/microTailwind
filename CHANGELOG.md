@@ -1,5 +1,11 @@
 # microtailwind
 
+## 1.4.2
+
+### Patch Changes
+
+- 9d36cc0: added add utility as array, added stroke option
+
 ## 1.4.1
 
 ### Patch Changes
