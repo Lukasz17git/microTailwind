@@ -11,7 +11,7 @@ export type UtilityVariants = Record<VariantName, FlexibleValueSupportingDarkMod
 export type _AddUtility = (
    darkmodeClassname: string,
    theme: string,
-   utility: UtilitiesPrefix | UtilitiesPrefix[],
+   utility: UtilitiesPrefix | 'combo_tc',
    variants: UtilityVariants,
 ) => TailwindAddUtilitiesOriginalPluginArgument
 

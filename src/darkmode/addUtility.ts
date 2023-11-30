@@ -1,6 +1,6 @@
 import { colorWithOpacity } from "../utils/colorWithOpacity"
-import { _AddUtility, _AddCustomUtility, TailwindAddUtilitiesOriginalPluginArgument } from "./addUtility.types"
-import { ValueUsingApply } from "./middleware.types"
+import { _AddUtility, _AddCustomUtility, TailwindAddUtilitiesOriginalPluginArgument, UtilityVariants } from "./addUtility.types"
+import { FlexibleValueSupportingDarkMode, FlexibleValueUsingApplySupportingDarkMode, ValueUsingApply } from "./middleware.types"
 
 const applyBackgroundWithColorOpacity = (value: string) => colorWithOpacity(value, '--tw-bg-opacity', color => ({ backgroundColor: color }))
 const applyTextColorWithColorOpacity = (value: string) => colorWithOpacity(value, '--tw-text-opacity', color => ({ color: color }))
@@ -22,14 +22,36 @@ export const utilitiesPrefixMap = {
 }
 
 const valueUsingApply: ValueUsingApply = '@apply '
+type ComboTextUtilities = 'fill' | 'stroke'
+const comboReplace = (replace: ComboTextUtilities, variants: UtilityVariants) => {
+   const copy = { ...variants }
+   for (const [key, value] of Object.entries(copy)) {
+      if (typeof value === 'string' && value.startsWith(valueUsingApply)) {
+         copy[key] = value.replace('tc-', `${replace}-`)
+      } else if (Array.isArray(value)) {
+         const valueArrayCopy: typeof value = [...value]
+         valueArrayCopy.forEach((value, index) => {
+            if (value && value.startsWith(valueUsingApply)) {
+               valueArrayCopy[index] = valueArrayCopy[index]?.replace('tc-', `${replace}-`)
+            }
+         })
+         copy[key] = valueArrayCopy
+      }
+   }
+   return copy
+}
 
 export const _addUtility: _AddUtility = (darkmodeClassname, theme, utility, variants) => {
 
-   if (Array.isArray(utility)) {
-      const utilities = utility.reduce<TailwindAddUtilitiesOriginalPluginArgument>(
-         (multipleUtilities, currentUtility) => ({ ...multipleUtilities, ..._addUtility(darkmodeClassname, theme, currentUtility, variants) }), {}
-      )
-      return utilities
+   if (utility === 'combo_tc') {
+      const tcUtilities = _addUtility(darkmodeClassname, theme, 'tc', variants)
+      const strokeUtilities = _addUtility(darkmodeClassname, theme, 'stroke', comboReplace('stroke', variants))
+      const fillUtilities = _addUtility(darkmodeClassname, theme, 'fill', comboReplace('fill', variants))
+      return {
+         ...tcUtilities,
+         ...strokeUtilities,
+         ...fillUtilities
+      }
    }
 
    const cssPropertyOrApplyFunction = utilitiesPrefixMap[utility]
