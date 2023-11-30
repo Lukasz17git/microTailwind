@@ -16,6 +16,7 @@ export const utilitiesPrefixMap = {
    outline: applyOutlineWithColorOpacity,
    o: applyOutlineWithColorOpacity,
    fill: 'fill',
+   stroke: 'stroke',
    shadow: 'boxShadow',
    s: 'boxShadow'
 }
@@ -23,6 +24,13 @@ export const utilitiesPrefixMap = {
 const valueUsingApply: ValueUsingApply = '@apply '
 
 export const _addUtility: _AddUtility = (darkmodeClassname, theme, utility, variants) => {
+
+   if (Array.isArray(utility)) {
+      const utilities = utility.reduce<TailwindAddUtilitiesOriginalPluginArgument>(
+         (multipleUtilities, currentUtility) => ({ ...multipleUtilities, ..._addUtility(darkmodeClassname, theme, currentUtility, variants) }), {}
+      )
+      return utilities
+   }
 
    const cssPropertyOrApplyFunction = utilitiesPrefixMap[utility]
 
@@ -53,7 +61,7 @@ export const _addUtility: _AddUtility = (darkmodeClassname, theme, utility, vari
             utilities[utilityName] = { [value]: "" }
          } else {
             utilities[utilityName] = typeof cssPropertyOrApplyFunction === 'string' ? { [cssPropertyOrApplyFunction]: value } : cssPropertyOrApplyFunction(value)
-            
+
          }
       }
    }
