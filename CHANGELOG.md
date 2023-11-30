@@ -1,5 +1,11 @@
 # microtailwind
 
+## 1.4.3
+
+### Patch Changes
+
+- 04a2e62: replaced array utility for 'combo_tc'
+
 ## 1.4.2
 
 ### Patch Changes
