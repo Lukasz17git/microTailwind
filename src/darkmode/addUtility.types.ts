@@ -1,8 +1,9 @@
 import { CssProperties, OmitFirstTwoArguments } from "../utils/typeHelpers";
-import { utilitiesPrefixMap } from "./addUtility";
+import { comboUtilitiesPrefixMap, utilitiesPrefixMap } from "./addUtility";
 import { FlexibleValueSupportingDarkMode, FlexibleValueUsingApplySupportingDarkMode } from "./middleware.types";
 
 type UtilitiesPrefix = keyof typeof utilitiesPrefixMap
+type UtilitiesComboPrefix = keyof typeof comboUtilitiesPrefixMap
 export type TailwindAddUtilitiesOriginalPluginArgument = Record<string, Record<string, string>>
 
 type VariantName = string
@@ -11,7 +12,7 @@ export type UtilityVariants = Record<VariantName, FlexibleValueSupportingDarkMod
 export type _AddUtility = (
    darkmodeClassname: string,
    theme: string,
-   utility: UtilitiesPrefix | 'combo_tc',
+   utility: UtilitiesPrefix | UtilitiesComboPrefix,
    variants: UtilityVariants,
 ) => TailwindAddUtilitiesOriginalPluginArgument
 

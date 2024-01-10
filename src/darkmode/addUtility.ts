@@ -1,38 +1,59 @@
 import { colorWithOpacity } from "../utils/colorWithOpacity"
 import { _AddUtility, _AddCustomUtility, TailwindAddUtilitiesOriginalPluginArgument, UtilityVariants } from "./addUtility.types"
-import { FlexibleValueSupportingDarkMode, FlexibleValueUsingApplySupportingDarkMode, ValueUsingApply } from "./middleware.types"
+import { ValueUsingApply } from "./middleware.types"
 
 const applyBackgroundWithColorOpacity = (value: string) => colorWithOpacity(value, '--tw-bg-opacity', color => ({ backgroundColor: color }))
+
 const applyTextColorWithColorOpacity = (value: string) => colorWithOpacity(value, '--tw-text-opacity', color => ({ color: color }))
-const applyBorderColorWithColorOpacity = (value: string) => colorWithOpacity(value, '--tw-border-opacity', color => ({ borderColor: color }))
-const applyOutlineWithColorOpacity = (value: string) => colorWithOpacity(value, '--tw-outline-opacity', color => ({ outlineColor: color }))
+
+const applyOutlineWithColorOpacity = (value: string) => colorWithOpacity(value, '--tw-outline-opacity', color => ({ outline: `solid 3px ${color}` }))
+
+const applyBorderColorWithColorOpacity = (value: string) => colorWithOpacity(value, '--tw-border-opacity', color => ({ border: `solid 2px ${color}` }))
+const applyBorderYColorWithColorOpacity = (value: string) => colorWithOpacity(value, '--tw-border-opacity', color => ({ borderTop: `solid 2px ${color}`, borderBottom: `solid 2px ${color}` }))
+const applyBorderXColorWithColorOpacity = (value: string) => colorWithOpacity(value, '--tw-border-opacity', color => ({ borderRight: `solid 2px ${color}`, borderLeft: `solid 2px ${color}` }))
+const applyBorderTopColorWithColorOpacity = (value: string) => colorWithOpacity(value, '--tw-border-opacity', color => ({ borderTop: `solid 2px ${color}` }))
+const applyBorderRightColorWithColorOpacity = (value: string) => colorWithOpacity(value, '--tw-border-opacity', color => ({ borderRight: `solid 2px ${color}` }))
+const applyBorderBottomColorWithColorOpacity = (value: string) => colorWithOpacity(value, '--tw-border-opacity', color => ({ borderBottom: `solid 2px ${color}` }))
+const applyBorderLeftColorWithColorOpacity = (value: string) => colorWithOpacity(value, '--tw-border-opacity', color => ({ borderLeft: `solid 2px ${color}` }))
 
 export const utilitiesPrefixMap = {
    bg: applyBackgroundWithColorOpacity,
-   text: applyTextColorWithColorOpacity,
    tc: applyTextColorWithColorOpacity,
-   border: applyBorderColorWithColorOpacity,
+   oc: applyOutlineWithColorOpacity,
    bc: applyBorderColorWithColorOpacity,
-   outline: applyOutlineWithColorOpacity,
-   o: applyOutlineWithColorOpacity,
+   byc: applyBorderYColorWithColorOpacity,
+   bxc: applyBorderXColorWithColorOpacity,
+   btc: applyBorderTopColorWithColorOpacity,
+   brc: applyBorderRightColorWithColorOpacity,
+   bbc: applyBorderBottomColorWithColorOpacity,
+   blc: applyBorderLeftColorWithColorOpacity,
    fill: 'fill',
    stroke: 'stroke',
    shadow: 'boxShadow',
    s: 'boxShadow'
 }
 
+export const comboUtilitiesPrefixMap = {
+   combo_text: ['tc', 'stroke', 'fill'],
+   combo_border: ['bc', 'byc', 'bxc', 'btc', 'brc', 'bbc', 'blc']
+} as const satisfies Record<string, readonly (keyof typeof utilitiesPrefixMap)[]>
+
 const valueUsingApply: ValueUsingApply = '@apply '
-type ComboTextUtilities = 'fill' | 'stroke'
-const comboReplace = (replace: ComboTextUtilities, variants: UtilityVariants) => {
+
+const comboReplace = (
+   utilityToBeReplaced: 'tc' | 'bc',
+   replace: typeof comboUtilitiesPrefixMap[keyof typeof comboUtilitiesPrefixMap][number],
+   variants: UtilityVariants
+) => {
    const copy = { ...variants }
    for (const [key, value] of Object.entries(copy)) {
       if (typeof value === 'string' && value.startsWith(valueUsingApply)) {
-         copy[key] = value.replace('tc-', `${replace}-`)
+         copy[key] = value.replace(`${utilityToBeReplaced}-`, `${replace}-`)
       } else if (Array.isArray(value)) {
          const valueArrayCopy: typeof value = [...value]
          valueArrayCopy.forEach((value, index) => {
             if (value && value.startsWith(valueUsingApply)) {
-               valueArrayCopy[index] = valueArrayCopy[index]?.replace('tc-', `${replace}-`)
+               valueArrayCopy[index] = valueArrayCopy[index]?.replace(`${utilityToBeReplaced}-`, `${replace}-`)
             }
          })
          copy[key] = valueArrayCopy
@@ -43,20 +64,18 @@ const comboReplace = (replace: ComboTextUtilities, variants: UtilityVariants) =>
 
 export const _addUtility: _AddUtility = (darkmodeClassname, theme, utility, variants) => {
 
-   if (utility === 'combo_tc') {
-      const tcUtilities = _addUtility(darkmodeClassname, theme, 'tc', variants)
-      const strokeUtilities = _addUtility(darkmodeClassname, theme, 'stroke', comboReplace('stroke', variants))
-      const fillUtilities = _addUtility(darkmodeClassname, theme, 'fill', comboReplace('fill', variants))
-      return {
-         ...tcUtilities,
-         ...strokeUtilities,
-         ...fillUtilities
-      }
+   const utilities: TailwindAddUtilitiesOriginalPluginArgument = {}
+
+   if (utility === 'combo_text' || utility === 'combo_border') {
+      const utilitiesToCombine = comboUtilitiesPrefixMap[utility]
+      utilitiesToCombine.forEach(utility => {
+         const singleUtility = _addUtility(darkmodeClassname, theme, utility, comboReplace(utilitiesToCombine[0], utility, variants))
+         Object.assign(utilities, singleUtility)
+      })
+      return utilities
    }
 
    const cssPropertyOrApplyFunction = utilitiesPrefixMap[utility]
-
-   const utilities: TailwindAddUtilitiesOriginalPluginArgument = {}
 
    for (const [variant, value] of Object.entries(variants)) {
       const utilityName = theme ? `.${theme} .${utility}-${variant}` : `.${utility}-${variant}`
