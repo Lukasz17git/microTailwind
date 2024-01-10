@@ -1,5 +1,11 @@
 # microtailwind
 
+## 1.5.0
+
+### Minor Changes
+
+- 1f1c890: added combo_text and combo_border utility support
+
 ## 1.4.3
 
 ### Patch Changes
