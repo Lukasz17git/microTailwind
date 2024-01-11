@@ -1,5 +1,11 @@
 # microtailwind
 
+## 1.5.1
+
+### Patch Changes
+
+- 234afcd: changed combo_border implementation
+
 ## 1.5.0
 
 ### Minor Changes
