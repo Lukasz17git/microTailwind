@@ -234,7 +234,8 @@ const widthExtension = {
 }
 
 const screensExtension = {
-   'xsm': '372px'
+   'xsm': '442px',
+   'xxsm': '356px'
 }
 
 const opacityExtension = {
