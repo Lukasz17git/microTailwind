@@ -1,5 +1,11 @@
 # microtailwind
 
+## 1.5.2
+
+### Patch Changes
+
+- 94a1cac: updated screen size extensions
+
 ## 1.5.1
 
 ### Patch Changes
