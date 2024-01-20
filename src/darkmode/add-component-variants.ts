@@ -1,5 +1,5 @@
-import { TailwindAddComponentsOriginalPluginArgument } from "./addComponents.types"
-import { _AddVariants } from "./addComponentVariants.types"
+import { TailwindAddComponentsOriginalPluginArgument } from "./add-components.types"
+import { _AddVariants } from "./add-component-variants.types"
 
 export const _addVariants: _AddVariants = (darkmodeClassname, theme, components) => {
 

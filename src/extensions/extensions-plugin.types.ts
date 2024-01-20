@@ -1,6 +1,6 @@
 import { PluginAPI } from 'tailwindcss/types/config'
 import { Config } from 'tailwindcss/types/config'
-import { microtailwindExtensions } from './extensionsPlugin'
+import { microtailwindExtensions } from './extensions-plugin'
 
 export type ExtensionSizeThemeParameter = { theme: PluginAPI['theme'] }
 

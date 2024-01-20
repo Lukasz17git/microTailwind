@@ -1,5 +1,5 @@
 import { CssProperties, OmitFirstTwoArguments } from "../utils/typeHelpers";
-import { comboUtilitiesPrefixMap, utilitiesPrefixMap } from "./addUtility";
+import { comboUtilitiesPrefixMap, utilitiesPrefixMap } from "./add-utility";
 import { FlexibleValueSupportingDarkMode, FlexibleValueUsingApplySupportingDarkMode } from "./middleware.types";
 
 type UtilitiesPrefix = keyof typeof utilitiesPrefixMap

@@ -139,37 +139,37 @@ export const microtailwind: PluginCreator = ({ addVariant, addUtilities, matchUt
    );
    // BORDER COLOR
    matchUtilities(
-      { bc: (value) => colorWithOpacity(value, '--tw-border-opacity', c => ({ border: `solid 2px ${c}` })) },
+      { bc: (value) => colorWithOpacity(value, '--tw-border-opacity', c => ({ border: `solid ${c}` })) },
       { values: flattenColorPalette(theme('colors')), type: ['color'] }
    );
    // BORDER Y-AXIS COLOR
    matchUtilities(
-      { byc: (value) => colorWithOpacity(value, '--tw-border-opacity', c => ({ borderTop: `solid 2px ${c}`, borderBottom: `solid 2px ${c}` })) },
+      { byc: (value) => colorWithOpacity(value, '--tw-border-opacity', c => ({ borderTop: `solid ${c}`, borderBottom: `solid ${c}` })) },
       { values: flattenColorPalette(theme('colors')), type: ['color'] }
    );
    // BORDER X-AXIS COLOR
    matchUtilities(
-      { bxc: (value) => colorWithOpacity(value, '--tw-border-opacity', c => ({ borderRight: `solid 2px ${c}`, borderLeft: `solid 2px ${c}` })) },
+      { bxc: (value) => colorWithOpacity(value, '--tw-border-opacity', c => ({ borderRight: `solid ${c}`, borderLeft: `solid ${c}` })) },
       { values: flattenColorPalette(theme('colors')), type: ['color'] }
    );
    // BORDER TOP COLOR
    matchUtilities(
-      { btc: (value) => colorWithOpacity(value, '--tw-border-opacity', c => ({ borderTop: `solid 2px ${c}` })) },
+      { btc: (value) => colorWithOpacity(value, '--tw-border-opacity', c => ({ borderTop: `solid ${c}` })) },
       { values: flattenColorPalette(theme('colors')), type: ['color'] }
    );
    // BORDER RIGHT COLOR
    matchUtilities(
-      { brc: (value) => colorWithOpacity(value, '--tw-border-opacity', c => ({ borderRight: `solid 2px ${c}` })) },
+      { brc: (value) => colorWithOpacity(value, '--tw-border-opacity', c => ({ borderRight: `solid ${c}` })) },
       { values: flattenColorPalette(theme('colors')), type: ['color'] }
    );
    // BORDER BOTTOM COLOR
    matchUtilities(
-      { bbc: (value) => colorWithOpacity(value, '--tw-border-opacity', c => ({ borderBottom: `solid 2px ${c}` })) },
+      { bbc: (value) => colorWithOpacity(value, '--tw-border-opacity', c => ({ borderBottom: `solid ${c}` })) },
       { values: flattenColorPalette(theme('colors')), type: ['color'] }
    );
    // BORDER LEFT COLOR
    matchUtilities(
-      { blc: (value) => colorWithOpacity(value, '--tw-border-opacity', c => ({ borderLeft: `solid 2px ${c}` })) },
+      { blc: (value) => colorWithOpacity(value, '--tw-border-opacity', c => ({ borderLeft: `solid ${c}` })) },
       { values: flattenColorPalette(theme('colors')), type: ['color'] }
    );
    // BORDER OPACITY

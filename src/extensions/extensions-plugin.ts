@@ -1,4 +1,4 @@
-import { ExtensionSizeThemeParameter, Extensions, ExtensionsConfig, extendedExtensions } from './extensionsPlugin.types';
+import { ExtensionSizeThemeParameter, Extensions, ExtensionsConfig, extendedExtensions } from './extensions-plugin.types';
 
 const pixelSpacingExtension = {
    "0.": '0px',

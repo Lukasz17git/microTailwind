@@ -1,9 +1,9 @@
-import { _addComponents } from "./addComponents"
-import { AddComponents } from "./addComponents.types"
-import { _addVariants } from "./addComponentVariants"
-import { AddVariants } from "./addComponentVariants.types"
-import { _addCustomUtility, _addUtility } from "./addUtility"
-import { AddCustomUtility, AddUtility } from "./addUtility.types"
+import { _addComponents } from "./add-components"
+import { AddComponents } from "./add-components.types"
+import { _addVariants } from "./add-component-variants"
+import { AddVariants } from "./add-component-variants.types"
+import { _addCustomUtility, _addUtility } from "./add-utility"
+import { AddCustomUtility, AddUtility } from "./add-utility.types"
 import { UsingThemeWithDarkmodeSupportMiddleware, DarkmodePluginCreator } from "./middleware.types"
 
 export const themeMiddleware: UsingThemeWithDarkmodeSupportMiddleware = (themeOrThemeCreator, themeCreator) => ({ addUtilities, addComponents }) => {

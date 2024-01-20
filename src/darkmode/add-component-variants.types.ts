@@ -1,4 +1,4 @@
-import { TailwindAddComponentsOriginalPluginArgument } from "./addComponents.types"
+import { TailwindAddComponentsOriginalPluginArgument } from "./add-components.types"
 import { ApplyObject, FlexibleValueUsingApplySupportingDarkMode, ValueSupportingDarkMode } from "./middleware.types"
 import { CssProperties, OmitFirstTwoArguments } from "../utils/typeHelpers"
 

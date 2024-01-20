@@ -1,7 +1,7 @@
 import { PluginAPI } from "tailwindcss/types/config"
-import { AddCustomUtility, AddUtility } from "./addUtility.types";
-import { AddComponents } from "./addComponents.types";
-import { AddVariants } from "./addComponentVariants.types";
+import { AddCustomUtility, AddUtility } from "./add-utility.types";
+import { AddComponents } from "./add-components.types";
+import { AddVariants } from "./add-component-variants.types";
 
 export type ValueSupportingDarkMode = string | [string] | [string, string]
 export type FlexibleValueSupportingDarkMode = ValueSupportingDarkMode | [undefined, string]
