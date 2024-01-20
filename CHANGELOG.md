@@ -1,5 +1,11 @@
 # microtailwind
 
+## 1.5.4
+
+### Patch Changes
+
+- f28ebbf: utility border color fix
+
 ## 1.5.3
 
 ### Patch Changes
