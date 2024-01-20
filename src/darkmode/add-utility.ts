@@ -6,16 +6,16 @@ const applyBackgroundWithColorOpacity = (value: string) => colorWithOpacity(valu
 
 const applyTextColorWithColorOpacity = (value: string) => colorWithOpacity(value, '--tw-text-opacity', color => ({ color: color }))
 
-const applyOutlineWithColorOpacity = (value: string) => colorWithOpacity(value, '--tw-outline-opacity', color => ({ outline: `solid ${color}` }))
+const applyOutlineWithColorOpacity = (value: string) => colorWithOpacity(value, '--tw-outline-opacity', color => ({ outlineColor: color }))
 
-const applyBorderColorWithColorOpacity = (value: string) => colorWithOpacity(value, '--tw-border-opacity', color => ({ border: `solid ${color}` }))
+const applyBorderColorWithColorOpacity = (value: string) => colorWithOpacity(value, '--tw-border-opacity', color => ({ borderColor: color }))
 
-const applyBorderYColorWithColorOpacity = (value: string) => colorWithOpacity(value, '--tw-border-opacity', color => ({ borderTop: `solid ${color}`, borderBottom: `solid ${color}` }))
-const applyBorderXColorWithColorOpacity = (value: string) => colorWithOpacity(value, '--tw-border-opacity', color => ({ borderRight: `solid ${color}`, borderLeft: `solid ${color}` }))
-const applyBorderTopColorWithColorOpacity = (value: string) => colorWithOpacity(value, '--tw-border-opacity', color => ({ borderTop: `solid ${color}` }))
-const applyBorderRightColorWithColorOpacity = (value: string) => colorWithOpacity(value, '--tw-border-opacity', color => ({ borderRight: `solid ${color}` }))
-const applyBorderBottomColorWithColorOpacity = (value: string) => colorWithOpacity(value, '--tw-border-opacity', color => ({ borderBottom: `solid ${color}` }))
-const applyBorderLeftColorWithColorOpacity = (value: string) => colorWithOpacity(value, '--tw-border-opacity', color => ({ borderLeft: `solid ${color}` }))
+const applyBorderYColorWithColorOpacity = (value: string) => colorWithOpacity(value, '--tw-border-opacity', color => ({ borderTopColor: color, borderBottomColor: color }))
+const applyBorderXColorWithColorOpacity = (value: string) => colorWithOpacity(value, '--tw-border-opacity', color => ({ borderRightColor: color, borderLeftColor: color }))
+const applyBorderTopColorWithColorOpacity = (value: string) => colorWithOpacity(value, '--tw-border-opacity', color => ({ borderTopColor: color }))
+const applyBorderRightColorWithColorOpacity = (value: string) => colorWithOpacity(value, '--tw-border-opacity', color => ({ borderRightColor: color }))
+const applyBorderBottomColorWithColorOpacity = (value: string) => colorWithOpacity(value, '--tw-border-opacity', color => ({ borderBottomColor: color }))
+const applyBorderLeftColorWithColorOpacity = (value: string) => colorWithOpacity(value, '--tw-border-opacity', color => ({ borderLeftColor: color }))
 
 export const utilitiesPrefixMap = {
    bg: applyBackgroundWithColorOpacity,
