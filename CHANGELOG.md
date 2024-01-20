@@ -1,5 +1,11 @@
 # microtailwind
 
+## 1.5.3
+
+### Patch Changes
+
+- ea8360f: fixed border utility bug
+
 ## 1.5.2
 
 ### Patch Changes
