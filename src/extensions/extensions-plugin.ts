@@ -219,6 +219,16 @@ const spacingExtension = {
    "2em": '2em',
 }
 
+const goodLookingSpacingExtension = {
+   "xsm": '0.625rem',
+   "sm": '0.75rem',
+   "md": '1rem',
+   "lg": '1.25rem',
+   "xlg": '1.5rem',
+   "2xlg": '2rem',
+   "3xlg": '3rem',
+}
+
 const heightExtension = {
    '100vh': '100vh',
    min: 'min-content',
@@ -314,7 +324,7 @@ const scaleExtension = {
    200: '2'
 };
 
-const spacing = { ...spacingExtension, ...pixelSpacingExtension }
+const spacing = { ...spacingExtension, ...pixelSpacingExtension, ...goodLookingSpacingExtension }
 const height = heightExtension
 const width = widthExtension
 const maxHeight = heightExtension
@@ -350,7 +360,7 @@ export const withMicrotailwindExtensions = (customExtensions: Extensions = {}, c
       const configKey = `disable_${extensionName}` as keyof ExtensionsConfig
       if (config[configKey]) continue
       const customExtension: object | ((args: ExtensionSizeThemeParameter) => object) | undefined = customExtensions[extensionName]      //this can be an object or a function
-      
+
       const isCustomExtensionFunction = typeof customExtension === 'function'
       const isMicrotailwindExtensionFunction = typeof microtailwindExtension === 'function'
 
@@ -368,6 +378,6 @@ export const withMicrotailwindExtensions = (customExtensions: Extensions = {}, c
       }
       extendedExtensions[extensionName] = { ...microtailwindExtension, ...customExtension }
    }
-   
+
    return extendedExtensions
 }
