@@ -35,14 +35,15 @@ export const utilitiesPrefixMap = {
 }
 
 export const comboUtilitiesPrefixMap = {
-   combo_text: ['tc', 'stroke', 'fill'],
-   combo_border: ['bc', 'byc', 'bxc', 'btc', 'brc', 'bbc', 'blc']
+   all: ['bg', 'tc', 'stroke', 'fill', 'bc', 'byc', 'bxc', 'btc', 'brc', 'bbc', 'blc', 'oc'],
+   text: ['tc', 'stroke', 'fill'],
+   border: ['bc', 'byc', 'bxc', 'btc', 'brc', 'bbc', 'blc']
 } as const satisfies Record<string, readonly (keyof typeof utilitiesPrefixMap)[]>
 
 const valueUsingApply: ValueUsingApply = '@apply '
 
 const comboReplace = (
-   utilityToBeReplaced: 'tc' | 'bc',
+   utilityToBeReplaced: 'tc' | 'bc' | 'bg',
    replace: typeof comboUtilitiesPrefixMap[keyof typeof comboUtilitiesPrefixMap][number],
    variants: UtilityVariants
 ) => {
@@ -67,7 +68,7 @@ export const _addUtility: _AddUtility = (darkmodeClassname, theme, utility, vari
 
    const utilities: TailwindAddUtilitiesOriginalPluginArgument = {}
 
-   if (utility === 'combo_text' || utility === 'combo_border') {
+   if (utility === 'all' || utility === 'text' || utility === 'border') {
       const utilitiesToCombine = comboUtilitiesPrefixMap[utility]
       utilitiesToCombine.forEach(utility => {
          const singleUtility = _addUtility(darkmodeClassname, theme, utility, comboReplace(utilitiesToCombine[0], utility, variants))

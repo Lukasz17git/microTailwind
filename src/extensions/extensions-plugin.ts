@@ -219,15 +219,15 @@ const spacingExtension = {
    "2em": '2em',
 }
 
-const goodLookingSpacingExtension = {
-   "xsm": '0.625rem',
-   "sm": '0.75rem',
-   "md": '1rem',
-   "lg": '1.25rem',
-   "xlg": '1.5rem',
-   "2xlg": '2rem',
-   "3xlg": '3rem',
-}
+// const goodLookingSpacingExtension = {
+//    "xsm": '0.625rem',
+//    "sm": '0.75rem',
+//    "md": '1rem',
+//    "lg": '1.25rem',
+//    "xlg": '1.5rem',
+//    "2xlg": '2rem',
+//    "3xlg": '3rem',
+// }
 
 const heightExtension = {
    '100vh': '100vh',
@@ -324,7 +324,7 @@ const scaleExtension = {
    200: '2'
 };
 
-const spacing = { ...spacingExtension, ...pixelSpacingExtension, ...goodLookingSpacingExtension }
+const spacing = { ...spacingExtension, ...pixelSpacingExtension }
 const height = heightExtension
 const width = widthExtension
 const maxHeight = heightExtension
