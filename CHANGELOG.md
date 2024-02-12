@@ -1,5 +1,11 @@
 # microtailwind
 
+## 1.7.0
+
+### Minor Changes
+
+- b2bc887: added "all" utility as color, changed the combo name, removed "goodLookingSpacingExtension"
+
 ## 1.6.0
 
 ### Minor Changes
