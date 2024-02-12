@@ -1,5 +1,11 @@
 # microtailwind
 
+## 1.6.0
+
+### Minor Changes
+
+- fe1e4b1: added goodLookingSpacing extension to the spacing extensions
+
 ## 1.5.4
 
 ### Patch Changes
