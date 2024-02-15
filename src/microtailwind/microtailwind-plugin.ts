@@ -34,6 +34,14 @@ export const microtailwind: PluginCreator = ({ addVariant, addUtilities, matchUt
    addVariant('hf', ['&:hover', '&:focus'])
    addVariant('d', ':is(.dark &)')
 
+   // USEFULL VARIANTS
+   addVariant('active-field', ['.peer:not(:placeholder-shown) ~ &', '.peer:focus ~ &', '.peer:-webkit-autofill ~ &'])
+   addVariant('state-on', '&[data-state=on]')
+   addVariant('state-off', '&[data-state=off]')
+   addVariant('state-open', '&[data-state=open]')
+   addVariant('state-closed', '&[data-state=closed]')
+   addVariant('disabled', ['&[disabled]', '&[data-disabled=true]'])
+
    // SHADOW
    matchUtilities(
       {
