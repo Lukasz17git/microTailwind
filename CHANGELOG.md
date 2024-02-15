@@ -1,5 +1,11 @@
 # microtailwind
 
+## 1.8.0
+
+### Minor Changes
+
+- 40c26f0: added some additional usefull variants
+
 ## 1.7.0
 
 ### Minor Changes
