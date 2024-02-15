@@ -1,5 +1,11 @@
 # microtailwind
 
+## 1.8.1
+
+### Patch Changes
+
+- d9d3390: added CSSProperties export
+
 ## 1.8.0
 
 ### Minor Changes
